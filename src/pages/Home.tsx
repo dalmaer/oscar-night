@@ -55,8 +55,7 @@ export default function Home() {
 
   const [showHostModal, setShowHostModal] = useState(false)
   const [showHelp, setShowHelp] = useState(false)
-  const [hostName, setHostName] = useState('')
-  const [hostCode, setHostCode] = useState(generateCode)
+  const [hostCode, setHostCode] = useState(() => generateCode().split(''))
   const [isCreating, setIsCreating] = useState(false)
   const [createError, setCreateError] = useState<string | null>(null)
 
@@ -125,20 +124,20 @@ export default function Home() {
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!hostName.trim() || hostCode.length !== 4) return
+    const hostCodeStr = hostCode.join('')
+    if (hostCodeStr.length !== 4) return
 
     setIsCreating(true)
     setCreateError(null)
 
     try {
-      const result = await createRoom(hostName.trim(), hostCode.toUpperCase())
+      const result = await createRoom('Host', hostCodeStr.toUpperCase())
 
       saveSession({
-        participantId: result.participantId,
         roomCode: result.roomCode,
         roomId: result.roomId,
         isHost: true,
-        name: hostName.trim()
+        name: 'Host'
       })
 
       navigate(`/room/${result.roomCode}`)
@@ -342,24 +341,11 @@ export default function Home() {
 
             <form onSubmit={handleCreate} className="space-y-6">
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-white/50 uppercase tracking-wider">Your Display Name</label>
-                <input
-                  type="text"
-                  value={hostName}
-                  onChange={e => { setHostName(e.target.value); setCreateError(null) }}
-                  placeholder={`e.g. ${placeholderName}`}
-                  autoFocus
-                  disabled={isCreating}
-                  className="w-full h-14 px-4 bg-white/10 border border-white/20 rounded-xl focus:border-gold focus:ring-1 focus:ring-gold text-white text-lg font-medium placeholder:text-white/20 outline-none transition-colors disabled:opacity-50"
-                />
-              </div>
-
-              <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <label className="block text-sm font-medium text-white/50 uppercase tracking-wider">Room Code</label>
                   <button
                     type="button"
-                    onClick={() => { setHostCode(generateCode()); setCreateError(null) }}
+                    onClick={() => { setHostCode(generateCode().split('')); setCreateError(null) }}
                     disabled={isCreating}
                     className="text-xs text-gold hover:text-gold-light transition-colors disabled:opacity-50 flex items-center gap-1"
                   >
@@ -368,18 +354,20 @@ export default function Home() {
                   </button>
                 </div>
                 <div className="grid grid-cols-4 gap-3">
-                  {hostCode.split('').map((char, i) => (
+                  {hostCode.map((char, i) => (
                     <input
                       key={i}
                       type="text"
-                      maxLength={1}
                       value={char}
+                      onFocus={e => e.target.select()}
                       onChange={e => {
-                        const val = e.target.value.toUpperCase()
+                        const raw = e.target.value.toUpperCase()
+                        // Take the last character (handles typing over existing char)
+                        const val = raw.slice(-1)
                         if (val && !VALID_CHARS.includes(val)) return
-                        const newCode = hostCode.split('')
+                        const newCode = [...hostCode]
                         newCode[i] = val
-                        setHostCode(newCode.join(''))
+                        setHostCode(newCode)
                         setCreateError(null)
                         if (val && i < 3) {
                           const next = e.target.nextElementSibling as HTMLInputElement | null
@@ -408,7 +396,7 @@ export default function Home() {
 
               <button
                 type="submit"
-                disabled={!hostName.trim() || hostCode.length !== 4 || isCreating}
+                disabled={hostCode.join('').length !== 4 || isCreating}
                 className="w-full h-14 bg-gold hover:bg-gold-light disabled:opacity-50 disabled:cursor-not-allowed text-primary font-black text-lg uppercase tracking-widest rounded-xl transition-all shadow-lg flex items-center justify-center gap-2"
               >
                 {isCreating ? 'Creating Room...' : 'Create Room'}
@@ -471,9 +459,12 @@ export default function Home() {
                 <p>Each correct prediction earns a point. When all awards are announced, the champion is crowned and you'll see which films swept the night.</p>
               </div>
 
-              <div className="pt-4 border-t border-white/10">
+              <div className="pt-4 border-t border-white/10 space-y-2">
                 <p className="text-white/40 text-xs">
-                  <strong className="text-white/60">Tip:</strong> The host doesn't vote — they focus on running the ceremony. Everyone else competes on the leaderboard.
+                  <strong className="text-white/60">Tip:</strong> The host account is just for running the ceremony — it doesn't vote or appear on the leaderboard.
+                </p>
+                <p className="text-white/40 text-xs">
+                  <strong className="text-white/60">Want to vote too?</strong> Open the room link on a second device (or in an incognito tab), join as a regular participant with your name, and submit your predictions there.
                 </p>
               </div>
             </div>

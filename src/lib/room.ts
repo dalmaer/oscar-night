@@ -14,7 +14,6 @@ export interface Participant {
   id: string
   room_id: string
   name: string
-  is_host: boolean
   joined_at: string
 }
 
@@ -37,7 +36,6 @@ export interface Winner {
 export interface LeaderboardEntry {
   participant_id: string
   name: string
-  is_host: boolean
   predictions_count: number
   score: number
 }
@@ -64,7 +62,7 @@ export async function createRoom(hostName: string, customCode?: string) {
   return data as {
     roomId: string
     roomCode: string
-    participantId: string
+    hostId: string
   }
 }
 

@@ -3,7 +3,7 @@ import { useState, useEffect, useCallback } from 'react'
 const STORAGE_KEY = 'oscarNight'
 
 export interface Session {
-  participantId: string
+  participantId?: string
   roomCode: string
   roomId: string
   isHost: boolean

@@ -1,7 +1,6 @@
 interface Participant {
   id: string
   name: string
-  is_host: boolean
   predictionsCount: number
 }
 
@@ -12,10 +11,9 @@ interface HostViewProps {
 }
 
 export default function HostView({ roomCode, participants, onStartCeremony }: HostViewProps) {
-  const guests = participants.filter(p => !p.is_host)
-  const totalBallots = guests.filter(p => p.predictionsCount === 24).length
-  const percentSubmitted = guests.length > 0
-    ? Math.round((totalBallots / guests.length) * 100)
+  const totalBallots = participants.filter(p => p.predictionsCount === 24).length
+  const percentSubmitted = participants.length > 0
+    ? Math.round((totalBallots / participants.length) * 100)
     : 0
 
   return (
@@ -46,7 +44,7 @@ export default function HostView({ roomCode, participants, onStartCeremony }: Ho
         <div className="flex flex-col gap-6">
           <div className="flex items-center justify-between border-b border-white/10 pb-4">
             <h2 className="text-2xl font-bold tracking-tight text-white">
-              Guest List <span className="text-gold ml-2 font-light">{guests.length}/24</span>
+              Guest List <span className="text-gold ml-2 font-light">{participants.length}/24</span>
             </h2>
             <div className="flex items-center gap-2 text-white/40 text-sm">
               <span className="material-symbols-outlined text-sm">group</span>
@@ -55,7 +53,7 @@ export default function HostView({ roomCode, participants, onStartCeremony }: Ho
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-            {guests.map((participant) => (
+            {participants.map((participant) => (
               <div key={participant.id} className="flex flex-col items-center gap-3">
                 <div className="relative group">
                   <div className="absolute -inset-1 bg-gold rounded-full opacity-0 group-hover:opacity-100 transition duration-500 blur-md" />
@@ -78,7 +76,7 @@ export default function HostView({ roomCode, participants, onStartCeremony }: Ho
             ))}
 
             {/* Empty slots */}
-            {Array.from({ length: Math.min(6 - guests.length, 3) }).map((_, i) => (
+            {Array.from({ length: Math.min(6 - participants.length, 3) }).map((_, i) => (
               <div key={`empty-${i}`} className="flex flex-col items-center gap-3 opacity-20">
                 <div className="size-20 md:size-24 rounded-full border-2 border-dashed border-white flex items-center justify-center">
                   <span className="material-symbols-outlined text-3xl">add</span>
@@ -128,11 +126,11 @@ export default function HostView({ roomCode, participants, onStartCeremony }: Ho
           <div className="flex flex-col gap-4">
             <div className="flex justify-between items-center text-sm font-medium border-b border-white/5 pb-2">
               <span className="text-white/60">Total Ballots Cast</span>
-              <span className="text-white font-bold">{totalBallots} / {guests.length}</span>
+              <span className="text-white font-bold">{totalBallots} / {participants.length}</span>
             </div>
             <div className="flex justify-between items-center text-sm font-medium border-b border-white/5 pb-2">
               <span className="text-white/60">Pending Votes</span>
-              <span className="text-gold font-bold">{guests.length - totalBallots} Remaining</span>
+              <span className="text-gold font-bold">{participants.length - totalBallots} Remaining</span>
             </div>
           </div>
         </div>
@@ -141,7 +139,7 @@ export default function HostView({ roomCode, participants, onStartCeremony }: Ho
         <div className="bg-primary/20 border border-white/10 p-6 rounded-xl flex-1 flex flex-col gap-4">
           <h4 className="text-xs font-black uppercase tracking-[0.2em] text-white/40">Live Activity</h4>
           <div className="flex flex-col gap-4">
-            {guests.slice(0, 3).map((p) => (
+            {participants.slice(0, 3).map((p) => (
               <div key={p.id} className="flex gap-3 items-start">
                 <div className={`size-2 rounded-full mt-1.5 shrink-0 ${p.predictionsCount === 24 ? 'bg-gold' : 'bg-white/10'}`} />
                 <p className="text-sm text-white/80 leading-relaxed">

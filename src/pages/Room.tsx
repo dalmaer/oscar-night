@@ -235,9 +235,10 @@ export default function Room() {
 
             {/* User menu */}
             <div className="flex items-center gap-2">
-              <span className="text-sm text-white/60">{session?.name}</span>
-              {isHost && (
+              {isHost ? (
                 <span className="text-[10px] bg-gold/20 text-gold px-2 py-1 rounded uppercase font-bold">Host</span>
+              ) : (
+                <span className="text-sm text-white/60">{session?.name}</span>
               )}
             </div>
 
