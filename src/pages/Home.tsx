@@ -359,10 +359,35 @@ export default function Home() {
                       key={i}
                       type="text"
                       value={char}
-                      onFocus={e => e.target.select()}
+                      autoComplete="off"
+                      onKeyDown={e => {
+                        if (e.key === 'Backspace') {
+                          e.preventDefault()
+                          if (hostCode[i]) {
+                            const newCode = [...hostCode]
+                            newCode[i] = ''
+                            setHostCode(newCode)
+                          } else if (i > 0) {
+                            const prev = (e.target as HTMLElement).previousElementSibling as HTMLInputElement | null
+                            prev?.focus()
+                          }
+                        } else if (e.key.length === 1) {
+                          e.preventDefault()
+                          const val = e.key.toUpperCase()
+                          if (!VALID_CHARS.includes(val)) return
+                          const newCode = [...hostCode]
+                          newCode[i] = val
+                          setHostCode(newCode)
+                          setCreateError(null)
+                          if (i < 3) {
+                            const next = (e.target as HTMLElement).nextElementSibling as HTMLInputElement | null
+                            next?.focus()
+                          }
+                        }
+                      }}
                       onChange={e => {
+                        // Fallback for mobile keyboards
                         const raw = e.target.value.toUpperCase()
-                        // Take the last character (handles typing over existing char)
                         const val = raw.slice(-1)
                         if (val && !VALID_CHARS.includes(val)) return
                         const newCode = [...hostCode]
@@ -370,14 +395,8 @@ export default function Home() {
                         setHostCode(newCode)
                         setCreateError(null)
                         if (val && i < 3) {
-                          const next = e.target.nextElementSibling as HTMLInputElement | null
+                          const next = (e.target as HTMLElement).nextElementSibling as HTMLInputElement | null
                           next?.focus()
-                        }
-                      }}
-                      onKeyDown={e => {
-                        if (e.key === 'Backspace' && !hostCode[i] && i > 0) {
-                          const prev = (e.target as HTMLElement).previousElementSibling as HTMLInputElement | null
-                          prev?.focus()
                         }
                       }}
                       disabled={isCreating}
