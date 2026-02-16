@@ -14,6 +14,7 @@ export interface Category {
 export interface NominationsData {
   year: number
   ceremony: string
+  ceremonyDate: string
   categories: Category[]
 }
 

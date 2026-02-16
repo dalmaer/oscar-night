@@ -3,8 +3,23 @@ import { useNavigate } from 'react-router-dom'
 import OscarLogo from '@/components/OscarLogo'
 import { useSession } from '@/hooks/useSession'
 import { createRoom, joinRoom } from '@/lib/room'
+import { nominations } from '@/lib/nominations'
+
+function getDaysUntilCeremony() {
+  const ceremonyDate = new Date(nominations.ceremonyDate + 'T00:00:00')
+  const now = new Date()
+  const diff = ceremonyDate.getTime() - now.getTime()
+  return Math.ceil(diff / (1000 * 60 * 60 * 24))
+}
+
+function formatCeremonyDate() {
+  const date = new Date(nominations.ceremonyDate + 'T00:00:00')
+  return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+}
 
 export default function Home() {
+  const daysUntil = getDaysUntilCeremony()
+  const ceremonyDateDisplay = formatCeremonyDate()
   const navigate = useNavigate()
   const { session, saveSession, clearSession } = useSession()
 
@@ -14,6 +29,7 @@ export default function Home() {
   const [joinError, setJoinError] = useState<string | null>(null)
 
   const [showHostModal, setShowHostModal] = useState(false)
+  const [showHelp, setShowHelp] = useState(false)
   const [hostName, setHostName] = useState('')
   const [isCreating, setIsCreating] = useState(false)
   const [createError, setCreateError] = useState<string | null>(null)
@@ -125,7 +141,12 @@ export default function Home() {
             <OscarLogo />
             <h2 className="text-white text-base font-semibold tracking-wide uppercase">Oscar Night</h2>
           </div>
-          <a className="text-sm font-medium hover:text-gold transition-colors" href="#">Help</a>
+          <button
+            onClick={() => setShowHelp(true)}
+            className="text-sm font-medium hover:text-gold transition-colors"
+          >
+            Help
+          </button>
         </div>
       </header>
 
@@ -138,9 +159,24 @@ export default function Home() {
           </h1>
           <div className="flex items-center justify-center gap-4 text-gold/80">
             <div className="h-[1px] w-12 bg-gold/40" />
-            <h2 className="text-lg lg:text-xl font-light uppercase tracking-[0.3em]">98th Academy Awards</h2>
+            <h2 className="text-lg lg:text-xl font-light uppercase tracking-[0.3em]">{nominations.ceremony}</h2>
             <div className="h-[1px] w-12 bg-gold/40" />
           </div>
+
+          {/* Ceremony date & countdown */}
+          <div className="mt-6 inline-flex items-center gap-3 bg-white/5 border border-white/10 rounded-full px-6 py-3">
+            <span className="material-symbols-outlined text-gold text-lg">calendar_today</span>
+            <span className="text-white/80 text-sm font-medium">{ceremonyDateDisplay}</span>
+            <span className="text-white/20">|</span>
+            {daysUntil > 0 ? (
+              <span className="text-gold text-sm font-bold">{daysUntil} {daysUntil === 1 ? 'day' : 'days'} away</span>
+            ) : daysUntil === 0 ? (
+              <span className="text-gold text-sm font-bold animate-pulse">Tonight!</span>
+            ) : (
+              <span className="text-white/40 text-sm font-medium">Ceremony complete</span>
+            )}
+          </div>
+
           <p className="mt-6 text-white/60 text-lg font-medium max-w-lg mx-auto">
             Join the ultimate social voting experience and track the winners live with your friends.
           </p>
@@ -252,7 +288,7 @@ export default function Home() {
 
         {/* Footer info */}
         <div className="mt-20 flex flex-col items-center gap-8">
-          <p className="text-white/20 text-xs font-medium uppercase tracking-[0.2em]">Live Voting Starts March 2nd, 2026</p>
+          <p className="text-white/20 text-xs font-medium uppercase tracking-[0.2em]">{nominations.ceremony}</p>
         </div>
       </main>
 
@@ -303,6 +339,69 @@ export default function Home() {
                 {isCreating ? 'Creating Room...' : 'Create Room'}
               </button>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* Help Modal */}
+      {showHelp && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            onClick={() => setShowHelp(false)}
+          />
+          <div className="relative bg-primary border border-white/10 rounded-2xl p-8 w-full max-w-lg shadow-2xl max-h-[80vh] overflow-y-auto">
+            <button
+              onClick={() => setShowHelp(false)}
+              className="absolute top-4 right-4 text-white/40 hover:text-white transition-colors"
+            >
+              <span className="material-symbols-outlined">close</span>
+            </button>
+
+            <div className="flex items-center gap-3 mb-6">
+              <span className="material-symbols-outlined text-gold">help</span>
+              <h3 className="text-xl font-bold text-white">How It Works</h3>
+            </div>
+
+            <div className="space-y-6 text-white/70 text-sm leading-relaxed">
+              <div>
+                <h4 className="text-white font-bold text-base mb-2 flex items-center gap-2">
+                  <span className="size-6 rounded-full bg-gold/20 text-gold text-xs font-black flex items-center justify-center">1</span>
+                  Join or Host
+                </h4>
+                <p>The <strong className="text-white">host</strong> creates a room and shares the 4-character code with friends. Everyone else enters the code and a display name to join.</p>
+              </div>
+
+              <div>
+                <h4 className="text-white font-bold text-base mb-2 flex items-center gap-2">
+                  <span className="size-6 rounded-full bg-gold/20 text-gold text-xs font-black flex items-center justify-center">2</span>
+                  Cast Your Votes
+                </h4>
+                <p>Pick who you think will win in each of the 24 Oscar categories. Your predictions save automatically. Change your mind anytime before the ceremony starts.</p>
+              </div>
+
+              <div>
+                <h4 className="text-white font-bold text-base mb-2 flex items-center gap-2">
+                  <span className="size-6 rounded-full bg-gold/20 text-gold text-xs font-black flex items-center justify-center">3</span>
+                  Watch Live
+                </h4>
+                <p>When the ceremony begins, the host starts <strong className="text-white">Live Mode</strong> and declares winners as they're announced on TV. The leaderboard updates in real time.</p>
+              </div>
+
+              <div>
+                <h4 className="text-white font-bold text-base mb-2 flex items-center gap-2">
+                  <span className="size-6 rounded-full bg-gold/20 text-gold text-xs font-black flex items-center justify-center">4</span>
+                  See Who Wins
+                </h4>
+                <p>Each correct prediction earns a point. When all awards are announced, the champion is crowned and you'll see which films swept the night.</p>
+              </div>
+
+              <div className="pt-4 border-t border-white/10">
+                <p className="text-white/40 text-xs">
+                  <strong className="text-white/60">Tip:</strong> The host doesn't vote — they focus on running the ceremony. Everyone else competes on the leaderboard.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       )}
