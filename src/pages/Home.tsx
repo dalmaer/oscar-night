@@ -322,7 +322,10 @@ export default function Home() {
 
       {/* Host Modal */}
       {showHostModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          onKeyDown={e => { if (e.key === 'Escape' && !isCreating) setShowHostModal(false) }}
+        >
           <div
             className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             onClick={() => !isCreating && setShowHostModal(false)}
@@ -429,7 +432,10 @@ export default function Home() {
 
       {/* Help Modal */}
       {showHelp && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          onKeyDown={e => { if (e.key === 'Escape') setShowHelp(false) }}
+        >
           <div
             className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             onClick={() => setShowHelp(false)}
