@@ -367,7 +367,7 @@ export default function Home() {
                     Randomize
                   </button>
                 </div>
-                <div className="flex gap-3">
+                <div className="grid grid-cols-4 gap-3">
                   {hostCode.split('').map((char, i) => (
                     <input
                       key={i}
@@ -393,7 +393,7 @@ export default function Home() {
                         }
                       }}
                       disabled={isCreating}
-                      className={`flex-1 h-16 text-center text-3xl font-bold bg-white/10 border rounded-xl focus:border-gold focus:ring-1 focus:ring-gold text-white uppercase outline-none transition-colors disabled:opacity-50 ${
+                      className={`w-full h-16 text-center text-2xl font-bold bg-white/10 border rounded-xl focus:border-gold focus:ring-1 focus:ring-gold text-white uppercase outline-none transition-colors disabled:opacity-50 ${
                         /[0-9]/.test(char) ? 'text-gold border-gold/30' : 'border-white/20'
                       }`}
                     />
