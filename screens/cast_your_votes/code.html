@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Cast Your Votes | Oscar Party</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#141414",
+                        "accent-gold": "#D4AF37",
+                        "accent-gold-light": "#F1D279",
+                        "background-light": "#f7f7f7",
+                        "background-dark": "#0A0A0A",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .gold-gradient {
+            background: linear-gradient(135deg, #D4AF37 0%, #F1D279 50%, #B8860B 100%);
+        }
+        .gold-border {
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        .selected-card {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.15);
+            border: 2px solid #D4AF37;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #141414;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #D4AF37;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-primary dark:text-white min-h-screen">
+<header class="sticky top-0 z-50 bg-background-dark/80 backdrop-blur-md border-b border-white/10 px-6 py-4">
+<div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="size-10 gold-gradient rounded-lg flex items-center justify-center text-primary shadow-lg">
+<span class="material-symbols-outlined font-bold">award_star</span>
+</div>
+<div>
+<h1 class="text-xl font-extrabold tracking-tight uppercase">Oscar Party <span class="text-accent-gold">2024</span></h1>
+<p class="text-[10px] text-accent-gold-light/60 tracking-[0.2em] uppercase font-bold">The Lobby</p>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-accent-gold text-sm font-bold border-b-2 border-accent-gold pb-1" href="#">Ballot</a>
+<a class="text-white/60 hover:text-white text-sm font-medium transition-colors" href="#">Leaderboard</a>
+<a class="text-white/60 hover:text-white text-sm font-medium transition-colors" href="#">Ceremony Rules</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="size-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors order-2">
+<span class="material-symbols-outlined text-white text-xl">notifications</span>
+</button>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-6 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+<aside class="hidden lg:block lg:col-span-3 space-y-6 sticky top-28 h-fit">
+<div class="bg-primary/40 rounded-xl border border-white/5 p-4">
+<h3 class="text-xs font-bold text-accent-gold uppercase tracking-widest mb-4">Quick Jump</h3>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 p-2 rounded-lg bg-accent-gold/10 text-accent-gold group" href="#best-picture">
+<span class="material-symbols-outlined text-xl">movie</span>
+<span class="text-sm font-bold">Best Picture</span>
+</a>
+<a class="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 text-white/50 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-xl">person</span>
+<span class="text-sm font-medium">Best Director</span>
+</a>
+<a class="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 text-white/50 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-xl">star</span>
+<span class="text-sm font-medium">Acting Categories</span>
+</a>
+<a class="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 text-white/50 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-xl">description</span>
+<span class="text-sm font-medium">Screenplay</span>
+</a>
+<a class="flex items-center gap-3 p-2 rounded-lg hover:bg-white/5 text-white/50 hover:text-white transition-all" href="#">
+<span class="material-symbols-outlined text-xl">palette</span>
+<span class="text-sm font-medium">Design &amp; Effects</span>
+</a>
+</nav>
+</div>
+<div class="bg-gradient-to-br from-accent-gold/20 to-transparent rounded-xl border border-accent-gold/20 p-6">
+<h4 class="text-white font-bold mb-2">Host Tip</h4>
+<p class="text-white/60 text-xs leading-relaxed">
+                Make sure to vote in all 24 categories. Ties are broken by the timestamp of the last submitted vote.
+            </p>
+</div>
+</aside>
+<section class="lg:col-span-9 space-y-8">
+<div class="relative overflow-hidden rounded-2xl bg-primary border border-accent-gold/30 p-8 shadow-2xl">
+<div class="absolute top-0 right-0 w-64 h-64 bg-accent-gold/10 blur-[100px] -mr-32 -mt-32"></div>
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-8 relative z-10">
+<div class="space-y-4">
+<h2 class="text-3xl font-black uppercase italic tracking-tighter">Time until Lock</h2>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 bg-white/5 rounded-xl flex items-center justify-center border border-white/10 mb-1">
+<span class="text-3xl font-black text-accent-gold">04</span>
+</div>
+<span class="text-[10px] uppercase font-bold text-white/40">Hours</span>
+</div>
+<div class="text-3xl font-black pt-3 text-white/20">:</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 bg-white/5 rounded-xl flex items-center justify-center border border-white/10 mb-1">
+<span class="text-3xl font-black text-accent-gold">22</span>
+</div>
+<span class="text-[10px] uppercase font-bold text-white/40">Minutes</span>
+</div>
+<div class="text-3xl font-black pt-3 text-white/20">:</div>
+<div class="flex flex-col items-center">
+<div class="w-16 h-16 bg-white/5 rounded-xl flex items-center justify-center border border-white/10 mb-1">
+<span class="text-3xl font-black text-accent-gold">48</span>
+</div>
+<span class="text-[10px] uppercase font-bold text-white/40">Seconds</span>
+</div>
+</div>
+</div>
+<div class="flex-1 max-w-sm md:border-l border-white/10 md:pl-8">
+<div class="flex justify-between items-end mb-3">
+<div>
+<h3 class="text-xs font-bold text-white/50 uppercase tracking-widest">Voting Status</h3>
+<p class="text-xl font-bold">14 / 24 <span class="text-sm font-medium text-white/40">Complete</span></p>
+</div>
+<span class="text-accent-gold font-bold text-sm">58%</span>
+</div>
+<div class="h-3 w-full bg-white/5 rounded-full overflow-hidden p-0.5">
+<div class="h-full rounded-full gold-gradient shadow-[0_0_10px_rgba(212,175,55,0.5)]" style="width: 58%;"></div>
+</div>
+<p class="mt-3 text-[11px] text-white/40 italic">You have 10 categories remaining to cast your ballot.</p>
+</div>
+</div>
+</div>
+<div class="space-y-6" id="best-picture">
+<div class="flex items-center justify-between px-2">
+<h2 class="text-2xl font-black uppercase tracking-tight flex items-center gap-3">
+<span class="w-8 h-[2px] bg-accent-gold"></span>
+                    Best Picture
+                </h2>
+<span class="bg-accent-gold text-primary text-[10px] font-black px-2 py-1 rounded uppercase">Priority Category</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+<div class="group relative bg-primary/40 rounded-xl border-2 border-accent-gold overflow-hidden transition-all hover:scale-[1.02] shadow-[0_0_20px_rgba(212,175,55,0.15)]">
+<div class="aspect-[2/3] relative">
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10"></div>
+<div class="w-full h-full bg-center bg-cover" data-alt="Dramatic movie poster for Oppenheimer" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBHhiFGVqgD3iUbCZxvOixBS8mOXgbItfZQZD_0CxlQOCviMmmAgvNQf_FPH_QJrrNgISUo-LzrJ33ufEeXXKckPZLO_cEJTiKKSkSH9zOQdpNUAgKwylcSQJjvdBdXoI4cGDMQzHnFzY_diT7v56rXk12hSjGTjWsQ6YIk_PBhX4lPsJug0gBGtPIf-y8EPhTqfEd9RtCxPZfIUDFfTS7WuyZ7aWav_wc_pYhbwk1XyWchEeKGX0zcxScOV81hG4ro1vp_ML4e5qdY');"></div>
+<div class="absolute top-4 left-4 z-20">
+<div class="bg-accent-gold text-primary size-8 rounded-full flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-xl font-black">check</span>
+</div>
+</div>
+</div>
+<div class="p-5 relative z-20 -mt-20">
+<h4 class="text-xl font-extrabold text-white leading-tight mb-1">Oppenheimer</h4>
+<p class="text-white/60 text-sm mb-4">Emma Thomas, Charles Roven and Christopher Nolan</p>
+<button class="w-full py-3 gold-gradient rounded-lg text-primary font-black uppercase tracking-wider text-xs shadow-lg">
+                            Your Vote
+                        </button>
+</div>
+</div>
+<div class="group relative bg-primary/40 rounded-xl border border-white/10 overflow-hidden transition-all hover:border-accent-gold/50 hover:scale-[1.02]">
+<div class="aspect-[2/3] relative">
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10"></div>
+<div class="w-full h-full bg-center bg-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Stylized pink movie poster for Barbie" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBCXG-Fl5Zif4IcerceP2Go05-paaEhGbniOg8aOsEeGbR704vz7vXCYfB9Xt1NCQhx4d2eVw4Ah0_ebYu_CTifzBvZ2vCMLXzGNl7hBQbtUFkal0ZpX1bhFUlwX15WRCGAEX_y-8WmtAoiSWQUpqgAchavYJqR-MohuB4ox8Yac4a2kFCilsGFLstdrvOV4miZRbhFj1PSqYk4XlU_wL71OoeLt6qR8TKeZBDGx2vZFT0_EB1Eb6i37QFU1HxZXm9kjpO2YEoPbOik');"></div>
+</div>
+<div class="p-5 relative z-20 -mt-20">
+<h4 class="text-xl font-extrabold text-white leading-tight mb-1">Barbie</h4>
+<p class="text-white/60 text-sm mb-4">David Heyman, Margot Robbie and Tom Ackerley</p>
+<button class="w-full py-3 bg-white/5 border border-white/10 rounded-lg text-white font-bold uppercase tracking-wider text-xs hover:bg-white/10 transition-colors">
+                            Cast Vote
+                        </button>
+</div>
+</div>
+<div class="group relative bg-primary/40 rounded-xl border border-white/10 overflow-hidden transition-all hover:border-accent-gold/50 hover:scale-[1.02]">
+<div class="aspect-[2/3] relative">
+<div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent z-10"></div>
+<div class="w-full h-full bg-center bg-cover grayscale group-hover:grayscale-0 transition-all duration-500" data-alt="Vibrant movie poster for Killers of the Flower Moon" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDUC9sRRflnALJ0bLL_blWgt5Kzq_5FICnk3KCo4MWwn_uiKnJaWDqrEllOBSjjFqZfuuLA9EhlQNyeQwBcuUtEMKAPo92SJBw1UjW9b7LkAD0PTlWeHolpYKLSeScr_KkG7DnrSDgf23-KxirJEEtPVSRNfIUGmslRVEtnBOuBU05RMuNBgl4n8jpRSff9FaYVMBo2cTl5v_NJEvBrmcheVfp3RckEpc0rn-VrqGh0cGrUoocMQsCBqE2rsZDQGYkS4vyAdRUe1VoS');"></div>
+</div>
+<div class="p-5 relative z-20 -mt-20">
+<h4 class="text-xl font-extrabold text-white leading-tight mb-1">Killers of the Flower Moon</h4>
+<p class="text-white/60 text-sm mb-4">Dan Friedkin, Bradley Thomas and Martin Scorsese</p>
+<button class="w-full py-3 bg-white/5 border border-white/10 rounded-lg text-white font-bold uppercase tracking-wider text-xs hover:bg-white/10 transition-colors">
+                            Cast Vote
+                        </button>
+</div>
+</div>
+</div>
+</div>
+<div class="space-y-6">
+<div class="flex items-center justify-between px-2">
+<h2 class="text-2xl font-black uppercase tracking-tight flex items-center gap-3">
+<span class="w-8 h-[2px] bg-accent-gold"></span>
+                    Best Director
+                </h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="flex items-center gap-4 bg-primary/40 border border-white/5 rounded-xl p-3 hover:border-accent-gold/30 transition-all cursor-pointer">
+<div class="size-20 rounded-lg overflow-hidden shrink-0 border border-white/10">
+<div class="w-full h-full bg-center bg-cover" data-alt="Headshot of Christopher Nolan" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB1RB15kSwPOOKazMrwuJNe-XHx39Pmn4IAwiGCZS_CoKVtn3dgVN9UmhLaS1Xm3FJk1ljfZ41HxW2_q7eKM23yp4gj-GD7_3Vg3mdBilTI78Xyehy_JnGxeC7qs5B8sc8x9OyQeBrei2LORMKSi61a0DXLTGtSuRo9JssZpmZNcjNbHWySjBX1l1yPH1irl66dwk7G8WT-kEw_1rZ1P6r-jqgVLayFJDEcFgcm9Ekv22di3-0Xgvtr19aTBYWQvuV9Hw6xATwP6C1z');"></div>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-white">Christopher Nolan</h4>
+<p class="text-accent-gold text-xs uppercase tracking-tighter">Oppenheimer</p>
+</div>
+<button class="px-6 py-2 bg-white/5 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-accent-gold hover:text-primary transition-all">Vote</button>
+</div>
+<div class="flex items-center gap-4 bg-primary/40 border border-accent-gold/50 rounded-xl p-3 shadow-lg shadow-accent-gold/5 cursor-pointer">
+<div class="size-20 rounded-lg overflow-hidden shrink-0 border border-accent-gold/30 relative">
+<div class="w-full h-full bg-center bg-cover" data-alt="Headshot of Martin Scorsese" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBbSN159oY5A17EcPH4g26ik4yag-WorInwsqn5WTaaWKLZncY0_quK1ZSy5mFjMaI7D7VEP_WFito2n4AYCOCC73cV7nFwgT6-oYo3UkOEqF1LTfSwZ6ZYgk-75l0qcTPhM8qpqb-8HUWT3uZdK8Mt_m_YBK_ZH3oXm5WGFjghU6fX4yslszNU4N9aJTbtFX8XnNLj96veT1XxmKR9dv5eEhbS_ObzpjAL1jz0i5P23o-dQoWTu8DsmehWhbc9mUFyT0IO40kA0f3n');"></div>
+<div class="absolute inset-0 bg-accent-gold/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-accent-gold font-black">check_circle</span>
+</div>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-accent-gold">Martin Scorsese</h4>
+<p class="text-white/60 text-xs uppercase tracking-tighter">Killers of the Flower Moon</p>
+</div>
+<button class="px-6 py-2 gold-gradient rounded-lg text-[10px] font-black uppercase tracking-widest text-primary">Voted</button>
+</div>
+<div class="flex items-center gap-4 bg-primary/40 border border-white/5 rounded-xl p-3 hover:border-accent-gold/30 transition-all cursor-pointer">
+<div class="size-20 rounded-lg overflow-hidden shrink-0 border border-white/10">
+<div class="w-full h-full bg-center bg-cover grayscale" data-alt="Headshot of Yorgos Lanthimos" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBHg9qV1feV9Cu4bvkgv88jGiJGVC5IHxvl9p0Q01kBtYwtHFywdVjsTGeju6bI6ZaMExrLuyGO5bq6nl2XdUUG1fZD8fWZrZ9-Kqsd6HnJU2VChO6QEinppZSiyg2T6NxyqUJY2xaiBjmIszFB-hQB6OhisCyJ23DUKRlEYeo_-DVnlyomi4U3Z31NzdLjcBEjK0H1_4IaA2FqbK9sDDLT6mGGJcrL5SSO-VzjrSydMAkpK69dILLK13pl5cC-UDA_gQgO0HwYnWLw');"></div>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-white">Yorgos Lanthimos</h4>
+<p class="text-accent-gold text-xs uppercase tracking-tighter">Poor Things</p>
+</div>
+<button class="px-6 py-2 bg-white/5 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-accent-gold hover:text-primary transition-all">Vote</button>
+</div>
+<div class="flex items-center gap-4 bg-primary/40 border border-white/5 rounded-xl p-3 hover:border-accent-gold/30 transition-all cursor-pointer">
+<div class="size-20 rounded-lg overflow-hidden shrink-0 border border-white/10">
+<div class="w-full h-full bg-center bg-cover grayscale" data-alt="Headshot of Jonathan Glazer" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBsZus_eDVhyBBkcy7VfiyGR2YD7LZpyB-be21x3CqFGlNXtZ8rxVLSS2ULjFa_EPZWuAFt8qJvmr7PixHCPxCMLNK91iuCYoDzUFa9wlM26epmgMHuaHaVMZlYn0bmLW1nkFtqHkX-8jetOEB9ZVcMQhNCpD44c-rIZ43XRvOoSue1zDor8yTc74Mt4a4RsZ_hKalC1yMXzMKAfcoEeLhDs5MHVLVVh38gD8gXz4tJsTTN2RXEeIQ2cE-ScFKhngkj0wqrNEvG1Ff8');"></div>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-white">Jonathan Glazer</h4>
+<p class="text-accent-gold text-xs uppercase tracking-tighter">The Zone of Interest</p>
+</div>
+<button class="px-6 py-2 bg-white/5 rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-accent-gold hover:text-primary transition-all">Vote</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="mt-20 border-t border-white/10 bg-primary/20 py-8 px-6">
+<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="flex items-center gap-2">
+<span class="size-2 bg-green-500 rounded-full animate-pulse"></span>
+<p class="text-xs text-white/40 uppercase tracking-widest font-bold">Live Status: Syncing Votes Automatically</p>
+</div>
+<div class="flex items-center gap-8">
+<p class="text-[10px] text-white/30 uppercase tracking-[0.3em] font-medium">© 2024 Hollywood Social Club</p>
+<div class="flex gap-4">
+<a class="text-white/40 hover:text-accent-gold transition-colors" href="#"><span class="material-symbols-outlined text-xl">help</span></a>
+<a class="text-white/40 hover:text-accent-gold transition-colors" href="#"><span class="material-symbols-outlined text-xl">settings</span></a>
+</div>
+</div>
+</div>
+</footer>
+<div class="fixed bottom-6 right-6 lg:hidden z-50">
+<button class="size-14 gold-gradient rounded-full shadow-2xl flex items-center justify-center text-primary">
+<span class="material-symbols-outlined font-black">menu</span>
+</button>
+</div>
+
+</body></html>

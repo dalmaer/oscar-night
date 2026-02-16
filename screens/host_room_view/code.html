@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Host Room View - Oscar Party Live</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#141414",
+                        "background-light": "#f7f7f7",
+                        "background-dark": "#121212",
+                        "accent-gold": "#C5A059"
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .cinema-gradient {
+            background: radial-gradient(circle at center, #1a1a1a 0%, #121212 100%);
+        }
+        .gold-border {
+            border-color: rgba(197, 160, 89, 0.3);
+        }
+        .text-shadow-lg {
+            text-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-primary dark:text-white min-h-screen flex flex-col overflow-x-hidden">
+<!-- Header Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-white/10 px-10 py-6 cinema-gradient">
+<div class="flex items-center gap-4">
+<div class="size-8 text-accent-gold">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z"></path>
+</svg>
+</div>
+<h2 class="text-white text-xl font-bold leading-tight tracking-tight uppercase">Oscar Party <span class="text-accent-gold">Live</span></h2>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 bg-white/5 px-4 py-2 rounded-lg border border-white/10">
+<span class="relative flex h-3 w-3">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+<span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+</span>
+<span class="text-sm font-medium tracking-widest uppercase">Waiting for host</span>
+</div>
+<div class="flex gap-3">
+<button class="flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-11 px-5 bg-white text-primary text-sm font-bold uppercase tracking-wider hover:bg-accent-gold transition-colors">
+<span class="truncate">Start Show</span>
+</button>
+<button class="flex size-11 items-center justify-center rounded-lg bg-white/10 text-white hover:bg-white/20">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-1 flex flex-col xl:flex-row gap-8 px-10 py-12 max-w-[1600px] mx-auto w-full">
+<!-- Left Side: Code & Players -->
+<div class="flex-1 flex flex-col gap-10">
+<!-- Room Code Hero -->
+<div class="bg-primary border gold-border p-12 rounded-xl text-center flex flex-col items-center gap-4 shadow-2xl">
+<h1 class="text-white/60 text-sm font-black tracking-[0.4em] uppercase">Room Code</h1>
+<div class="flex gap-4">
+<span class="text-8xl md:text-9xl font-black text-white tracking-tighter">A</span>
+<span class="text-8xl md:text-9xl font-black text-white tracking-tighter">B</span>
+<span class="text-8xl md:text-9xl font-black text-accent-gold tracking-tighter">7</span>
+<span class="text-8xl md:text-9xl font-black text-white tracking-tighter">X</span>
+</div>
+<p class="text-white/40 text-lg mt-4 font-medium italic">Go to <span class="text-white underline underline-offset-4">awards.app</span> on your mobile device to join the party</p>
+</div>
+<!-- Players Section -->
+<div class="flex flex-col gap-6">
+<div class="flex items-center justify-between border-b border-white/10 pb-4">
+<h2 class="text-2xl font-bold tracking-tight text-white">Guest List <span class="text-accent-gold ml-2 font-light">12/24</span></h2>
+<div class="flex items-center gap-2 text-white/40 text-sm">
+<span class="material-symbols-outlined text-sm">group</span>
+<span>Capacity: 24 Players</span>
+</div>
+</div>
+<!-- Player Grid -->
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+<!-- Player Cards -->
+<div class="flex flex-col items-center gap-3">
+<div class="relative group">
+<div class="absolute -inset-1 bg-accent-gold rounded-full opacity-0 group-hover:opacity-100 transition duration-500 blur-md"></div>
+<div class="relative size-24 md:size-32 rounded-full border-2 border-white/10 bg-cover bg-center overflow-hidden" data-alt="Close up portrait of Alex smiling" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAKOQEREyJkHUksQCFyCV6tYTPWpsLjRuZpHss-nbXYnHJFQlDhZbcyOlskanDPUJLQXyD77mYXsNEmz2MLO-65JBb8nxp7nntjZ8lOgJbFYSlrdE4_gYgNBiPAPpUjpwdtONlQya9z1PVZG0GKsoSRFkFhiZXPsTTUHkEcGgepgWIClyQWldRGIBxjzxYbBFlMMYK_cm7VcyJO0psLFo-1GiEhvhfafsfGTlgzKaHo6LpsEJisopQQNU0mgAJQ_KYyz85dhD6mFmqf");'>
+</div>
+</div>
+<p class="text-white font-bold text-center tracking-wide uppercase text-sm">Alex</p>
+</div>
+<div class="flex flex-col items-center gap-3">
+<div class="size-24 md:size-32 rounded-full border-2 border-white/10 bg-cover bg-center" data-alt="Close up portrait of Jordan" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBjP0u4yU-2L_0zivzi0lpbm5xIv99_LfGmF54uvjiFYPo4Y44DKDvF3CAd_rEFGHSGWdQJfl5ak-nidiRkrC5-oAMdK-ReEHtvMCG3koL1wRq3JswSfg39iu9plszKvsOI0fWj_E6sq1WdthTjVbW_CzDXxTxXgwMS7TH-pTYb_BDREKe5jFkW8B6vcfJgEvz3hGwVASKSR-wOVxdjWto3DCuAZZYC5IA3RkpK2iVeT1aI8W1pEgImhSlBtwrHy2Flo7L8s_SivmGm");'>
+</div>
+<p class="text-white font-bold text-center tracking-wide uppercase text-sm">Jordan</p>
+</div>
+<div class="flex flex-col items-center gap-3">
+<div class="size-24 md:size-32 rounded-full border-2 border-white/10 bg-cover bg-center" data-alt="Close up portrait of Sam" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAU5qCZ0fzs9WeaAwd_3p8Y1V4Qkal97IGB8AsofBuXw9OzbPRKHS2wymsKe04zV3ur5mT9irIHU6kN5nC1D2HoJeDcgHAytrH8HrmC9nbaMRnHbpuEiyQBbhjFtlAcmU64WmdAaqOcbkrEH_WEevdMNTLeG9aJI2XcBW-gBfEP4cDw8Qvhag5lyyrDTwRN2wT5nJc2Doszs_nBaRBGbwuF0YAUpw9rOB5yVlrICJTLDX7pU4b8mbu9RJLuXmpANFGGIGMMo4R1DuRy");'>
+</div>
+<p class="text-white font-bold text-center tracking-wide uppercase text-sm">Sam</p>
+</div>
+<div class="flex flex-col items-center gap-3">
+<div class="size-24 md:size-32 rounded-full border-2 border-white/10 bg-cover bg-center" data-alt="Close up portrait of Casey" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBxc-z6FWqx2VgIvy-S0SFukFvg7LruIyBVu4V7fIO3q8-n3RT-v5xM8Xoqz5o0tDqFQrWadMcQIxuutr8GYcFW3ionPLZVs7H3Wi41gjjfLiqKO4fm11h-OPcm-DoyErFhtp391HeY_isx6N-mk75dAdiSAZkGYW8bmTDmqs_PPm-Xrk0KtgZSqbM59b8MRX9sJ92ylHqE77-gcM_UGGD93CEVMDBg09pWC5JYv-w-ZF6ccz2-saX8yT-x1gaIeKGKCG92_uEnU5Cu");'>
+</div>
+<p class="text-white font-bold text-center tracking-wide uppercase text-sm">Casey</p>
+</div>
+<div class="flex flex-col items-center gap-3">
+<div class="size-24 md:size-32 rounded-full border-2 border-white/10 bg-cover bg-center" data-alt="Close up portrait of Taylor" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCjAxmNBPR8ruwgeZtilASPTpoeMVcW--m3TNGUJIVtLdPfyOGKgLt3sodISg_4WH2GRuT967lcR3KtY0aUcKyrMaM7OCS2X2XxdseB8Ju34hXdtTL20Gj-KdJG80ildIP6IvhO9wzsJg9rjwxnwT2Enyt0_c2Ly_FO5MHrRReL62kXpVwMgZEhr4D1ItdXo6e7jxlIAqlQHwOlfarUN6Y5yBYRm3rGUprL44HOrhT72t4kodV7SCjUvdmlL_ba7HWrPaPwmRZ-ClAm");'>
+</div>
+<p class="text-white font-bold text-center tracking-wide uppercase text-sm">Taylor</p>
+</div>
+<div class="flex flex-col items-center gap-3">
+<div class="size-24 md:size-32 rounded-full border-2 border-white/10 bg-cover bg-center" data-alt="Close up portrait of Morgan" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCNA8knoXxuFd7tcWPR-8HxOoJunWeSbYsHUcZMyYmvvXWUb1aib_DY4p5PbvZzuHNbzC2Fp6fEL24c5NQlrtS-y-zRhAW6o8fFmB-I2IbXUlvMALnCNuYbcC1A0xPvXOQhgORyIn5OBEkT-sTV6Z56LBe3Axhex7WJ2cCxN70dHH5DGDmDE629I1bYk6FWaJet7uUkfiqGzdabzaw67U7x44ZiiciP6P5P-tfIfagiLDkZy3KYiR8w8dfOJFa69kztXlHnmcGI-ck8");'>
+</div>
+<p class="text-white font-bold text-center tracking-wide uppercase text-sm">Morgan</p>
+</div>
+<!-- Placeholder/Empty Slots -->
+<div class="flex flex-col items-center gap-3 opacity-20">
+<div class="size-24 md:size-32 rounded-full border-2 border-dashed border-white flex items-center justify-center">
+<span class="material-symbols-outlined text-4xl">add</span>
+</div>
+<p class="text-white font-bold text-center tracking-wide uppercase text-xs">Waiting...</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Side: Stats & Activity -->
+<div class="w-full xl:w-[400px] flex flex-col gap-6">
+<!-- Vote Summary Card -->
+<div class="bg-primary/40 border border-white/10 p-8 rounded-xl flex flex-col gap-6 backdrop-blur-md">
+<h3 class="text-lg font-bold uppercase tracking-[0.2em] text-accent-gold">Ballot Status</h3>
+<!-- Circular Progress Mockup -->
+<div class="flex justify-center py-4">
+<div class="relative size-48 flex items-center justify-center">
+<svg class="size-full -rotate-90" viewbox="0 0 100 100">
+<circle class="text-white/5" cx="50" cy="50" fill="transparent" r="42" stroke="currentColor" stroke-width="8"></circle>
+<circle class="text-accent-gold" cx="50" cy="50" fill="transparent" r="42" stroke="currentColor" stroke-dasharray="263.89" stroke-dashoffset="65" stroke-linecap="round" stroke-width="8"></circle>
+</svg>
+<div class="absolute flex flex-col items-center">
+<span class="text-4xl font-black text-white">75%</span>
+<span class="text-xs uppercase text-white/40 tracking-widest font-bold">Submitted</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-center text-sm font-medium border-b border-white/5 pb-2">
+<span class="text-white/60">Total Ballots Cast</span>
+<span class="text-white font-bold">9 / 12</span>
+</div>
+<div class="flex justify-between items-center text-sm font-medium border-b border-white/5 pb-2">
+<span class="text-white/60">Pending Votes</span>
+<span class="text-accent-gold font-bold">3 Remaining</span>
+</div>
+<div class="flex justify-between items-center text-sm font-medium">
+<span class="text-white/60">Avg. Prediction Rate</span>
+<span class="text-white font-bold">82%</span>
+</div>
+</div>
+</div>
+<!-- Live Feed Card -->
+<div class="bg-primary/20 border border-white/10 p-6 rounded-xl flex-1 flex flex-col gap-4">
+<h4 class="text-xs font-black uppercase tracking-[0.2em] text-white/40">Live Activity</h4>
+<div class="flex flex-col gap-4">
+<div class="flex gap-3 items-start">
+<div class="size-2 bg-accent-gold rounded-full mt-1.5 shrink-0"></div>
+<p class="text-sm text-white/80 leading-relaxed"><span class="font-bold text-white">Alex</span> just finalized their Best Picture prediction.</p>
+</div>
+<div class="flex gap-3 items-start">
+<div class="size-2 bg-accent-gold rounded-full mt-1.5 shrink-0"></div>
+<p class="text-sm text-white/80 leading-relaxed"><span class="font-bold text-white">Jordan</span> has entered the lobby.</p>
+</div>
+<div class="flex gap-3 items-start">
+<div class="size-2 bg-white/10 rounded-full mt-1.5 shrink-0"></div>
+<p class="text-sm text-white/40 leading-relaxed"><span class="font-bold">Casey</span> is still choosing Best Original Score...</p>
+</div>
+</div>
+</div>
+<!-- Lock Toggle -->
+<div class="bg-accent-gold/10 border border-accent-gold/20 p-5 rounded-xl flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-sm font-bold text-accent-gold uppercase tracking-wider">Privacy</span>
+<span class="text-xs text-accent-gold/70">Room is currently OPEN</span>
+</div>
+<button class="bg-accent-gold text-primary font-black px-4 py-2 rounded text-xs uppercase hover:bg-white transition-colors">
+                    Lock Room
+                </button>
+</div>
+</div>
+</main>
+<!-- Projector Footer -->
+<footer class="mt-auto px-10 py-4 bg-primary/80 border-t border-white/5 flex justify-between items-center backdrop-blur-sm">
+<div class="flex items-center gap-6">
+<p class="text-[10px] font-black tracking-[0.3em] uppercase text-white/40">The 96th Academy Awards</p>
+<div class="h-4 w-px bg-white/10"></div>
+<p class="text-[10px] font-black tracking-[0.3em] uppercase text-white/40">Powered by Oscar Party Live v2.4</p>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-[10px] font-black tracking-[0.3em] uppercase text-accent-gold animate-pulse">System Online</span>
+<div class="size-2 rounded-full bg-accent-gold"></div>
+</div>
+</footer>
+</body></html>
