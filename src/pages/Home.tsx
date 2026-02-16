@@ -307,8 +307,9 @@ export default function Home() {
         </div>
 
         {/* Footer info */}
-        <div className="mt-20 flex flex-col items-center gap-8">
+        <div className="mt-20 flex flex-col items-center gap-4">
           <p className="text-white/20 text-xs font-medium uppercase tracking-[0.2em]">{nominations.ceremony}</p>
+          <p className="text-white/30 text-xs">Produced with ❤️ by Ivan's Movie Cult</p>
         </div>
       </main>
 

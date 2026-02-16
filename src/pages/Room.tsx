@@ -294,8 +294,8 @@ export default function Room() {
               {phase === 'VOTING' ? 'Syncing votes automatically' : 'Connected'}
             </p>
           </div>
-          <p className="text-[10px] text-white/30 uppercase tracking-[0.2em]">
-            98th Academy Awards
+          <p className="text-[10px] text-white/30 tracking-[0.2em]">
+            Produced with ❤️ by Ivan's Movie Cult
           </p>
         </div>
       </footer>
