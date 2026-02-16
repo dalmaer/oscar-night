@@ -48,10 +48,12 @@ export default function Home() {
   const [isJoining, setIsJoining] = useState(false)
   const [joinError, setJoinError] = useState<string | null>(null)
 
-  const VALID_CHARS = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'
+  // Unambiguous chars for random codes only — manual input allows all alphanumeric
+  const RANDOM_CHARS = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'
   const generateCode = () => Array.from({ length: 4 }, () =>
-    VALID_CHARS[Math.floor(Math.random() * VALID_CHARS.length)]
+    RANDOM_CHARS[Math.floor(Math.random() * RANDOM_CHARS.length)]
   ).join('')
+  const isValidChar = (c: string) => /^[A-Z0-9]$/.test(c)
 
   const [showHostModal, setShowHostModal] = useState(false)
   const [showHelp, setShowHelp] = useState(false)
@@ -374,7 +376,7 @@ export default function Home() {
                         } else if (e.key.length === 1) {
                           e.preventDefault()
                           const val = e.key.toUpperCase()
-                          if (!VALID_CHARS.includes(val)) return
+                          if (!isValidChar(val)) return
                           const newCode = [...hostCode]
                           newCode[i] = val
                           setHostCode(newCode)
@@ -389,7 +391,7 @@ export default function Home() {
                         // Fallback for mobile keyboards
                         const raw = e.target.value.toUpperCase()
                         const val = raw.slice(-1)
-                        if (val && !VALID_CHARS.includes(val)) return
+                        if (val && !isValidChar(val)) return
                         const newCode = [...hostCode]
                         newCode[i] = val
                         setHostCode(newCode)

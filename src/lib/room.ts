@@ -54,7 +54,7 @@ export async function createRoom(hostName: string, customCode?: string) {
       throw new Error('That room code is already taken. Try another one.')
     }
     if (error.message.includes('Invalid room code')) {
-      throw new Error('Invalid code. Use letters A-Z (no O, I, L) and digits 2-9.')
+      throw new Error('Invalid code. Use letters A-Z and digits 0-9.')
     }
     throw error
   }
