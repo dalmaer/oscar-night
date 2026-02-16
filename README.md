@@ -128,9 +128,66 @@ Four tables with real-time enabled:
 
 Scoring is handled by a `get_leaderboard` RPC function that joins predictions against winners.
 
-## Nominations Data
+## Setting Up for a New Year
 
-All 24 Oscar categories and nominees live in `data/nominations-2026.json`. To update for a new year, replace this file with the new nominations. The app reads categories, nominee names, films, and the ceremony date from this file.
+When the 2027 (or later) nominations are announced, here's what to update:
+
+### 1. Create the new nominations file
+
+Create `data/nominations-2027.json` following the same structure:
+
+```json
+{
+  "year": 2027,
+  "ceremony": "99th Academy Awards",
+  "ceremonyDate": "2027-03-07",
+  "categories": [
+    {
+      "name": "Actor in a Leading Role",
+      "nominees": [
+        { "name": "Person Name", "film": "Film Title" }
+      ]
+    },
+    {
+      "name": "Best Picture",
+      "nominees": [
+        { "film": "Film Title" }
+      ]
+    },
+    {
+      "name": "Music (Original Song)",
+      "nominees": [
+        { "song": "Song Title", "film": "Film Title", "credits": "Music and Lyric by ..." }
+      ]
+    }
+  ]
+}
+```
+
+There are three nominee shapes depending on the category:
+- **Acting/directing**: `{ "name": "Person", "film": "Film" }`
+- **Technical/picture**: `{ "film": "Film" }` (or `{ "name": "Person", "film": "Film" }` for crafts with individual nominees)
+- **Original Song**: `{ "song": "Song Title", "film": "Film", "credits": "..." }`
+
+### 2. Update the import
+
+In `src/lib/nominations.ts`, change the import path:
+
+```ts
+import nominationsData from '../../data/nominations-2027.json'
+```
+
+### 3. Update branding (optional)
+
+Search for `2026` in `src/` to find any hardcoded year references (e.g. the header says "Oscar Night 2026"). Update as needed.
+
+### 4. Clear old rooms
+
+Old rooms from previous years live in Supabase. You can either:
+- Delete them via the Supabase dashboard (SQL: `DELETE FROM rooms WHERE created_at < '2027-01-01'`)
+- Leave them — they won't interfere with new rooms
+
+That's it — no schema changes or migrations needed. The app dynamically reads all categories from the JSON file.
 
 ## License
 
