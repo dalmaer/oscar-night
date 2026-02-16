@@ -126,17 +126,6 @@ export function useRoom(roomCode: string | undefined) {
     }
   }, [room?.id, isHost])
 
-  // End ceremony (host only)
-  const endCeremony = useCallback(async () => {
-    if (!room?.id || !isHost) return
-
-    try {
-      await roomService.updateRoomPhase(room.id, 'CLOSED')
-    } catch (err) {
-      console.error('Failed to end ceremony:', err)
-    }
-  }, [room?.id, isHost])
-
   // Declare winner (host only)
   const declareWinner = useCallback(async (categoryId: string, nomineeId: string) => {
     if (!room?.id || !isHost) return
@@ -190,7 +179,6 @@ export function useRoom(roomCode: string | undefined) {
     error,
     savePrediction,
     startCeremony,
-    endCeremony,
     declareWinner,
     setCurrentCategory,
   }
