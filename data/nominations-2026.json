@@ -1,0 +1,251 @@
+{
+  "year": 2026,
+  "ceremony": "98th Academy Awards",
+  "categories": [
+    {
+      "name": "Actor in a Leading Role",
+      "nominees": [
+        { "name": "Timothée Chalamet", "film": "Marty Supreme" },
+        { "name": "Leonardo DiCaprio", "film": "One Battle after Another" },
+        { "name": "Ethan Hawke", "film": "Blue Moon" },
+        { "name": "Michael B. Jordan", "film": "Sinners" },
+        { "name": "Wagner Moura", "film": "The Secret Agent" }
+      ]
+    },
+    {
+      "name": "Actor in a Supporting Role",
+      "nominees": [
+        { "name": "Benicio Del Toro", "film": "One Battle after Another" },
+        { "name": "Jacob Elordi", "film": "Frankenstein" },
+        { "name": "Delroy Lindo", "film": "Sinners" },
+        { "name": "Sean Penn", "film": "One Battle after Another" },
+        { "name": "Stellan Skarsgård", "film": "Sentimental Value" }
+      ]
+    },
+    {
+      "name": "Actress in a Leading Role",
+      "nominees": [
+        { "name": "Jessie Buckley", "film": "Hamnet" },
+        { "name": "Rose Byrne", "film": "If I Had Legs I'd Kick You" },
+        { "name": "Kate Hudson", "film": "Song Sung Blue" },
+        { "name": "Renate Reinsve", "film": "Sentimental Value" },
+        { "name": "Emma Stone", "film": "Bugonia" }
+      ]
+    },
+    {
+      "name": "Actress in a Supporting Role",
+      "nominees": [
+        { "name": "Elle Fanning", "film": "Sentimental Value" },
+        { "name": "Inga Ibsdotter Lilleaas", "film": "Sentimental Value" },
+        { "name": "Amy Madigan", "film": "Weapons" },
+        { "name": "Wunmi Mosaku", "film": "Sinners" },
+        { "name": "Teyana Taylor", "film": "One Battle after Another" }
+      ]
+    },
+    {
+      "name": "Animated Feature Film",
+      "nominees": [
+        { "film": "Arco", "creators": "Ugo Bienvenu, Félix de Givry, Sophie Mas and Natalie Portman" },
+        { "film": "Elio", "creators": "Madeline Sharafian, Domee Shi, Adrian Molina and Mary Alice Drumm" },
+        { "film": "KPop Demon Hunters", "creators": "Maggie Kang, Chris Appelhans and Michelle L.M. Wong" },
+        { "film": "Little Amélie or the Character of Rain", "creators": "Maïlys Vallade, Liane-Cho Han, Nidia Santiago and Henri Magalon" },
+        { "film": "Zootopia 2", "creators": "Jared Bush, Byron Howard and Yvett Merino" }
+      ]
+    },
+    {
+      "name": "Animated Short Film",
+      "nominees": [
+        { "film": "Butterfly", "creators": "Florence Miailhe and Ron Dyens" },
+        { "film": "Forevergreen", "creators": "Nathan Engelhardt and Jeremy Spears" },
+        { "film": "The Girl Who Cried Pearls", "creators": "Chris Lavis and Maciek Szczerbowski" },
+        { "film": "Retirement Plan", "creators": "John Kelly and Andrew Freedman" },
+        { "film": "The Three Sisters", "creators": "Konstantin Bronzit" }
+      ]
+    },
+    {
+      "name": "Casting",
+      "nominees": [
+        { "film": "Hamnet", "castingDirector": "Nina Gold" },
+        { "film": "Marty Supreme", "castingDirector": "Jennifer Venditti" },
+        { "film": "One Battle after Another", "castingDirector": "Cassandra Kulukundis" },
+        { "film": "The Secret Agent", "castingDirector": "Gabriel Domingues" },
+        { "film": "Sinners", "castingDirector": "Francine Maisler" }
+      ]
+    },
+    {
+      "name": "Cinematography",
+      "nominees": [
+        { "film": "Frankenstein", "cinematographer": "Dan Laustsen" },
+        { "film": "Marty Supreme", "cinematographer": "Darius Khondji" },
+        { "film": "One Battle after Another", "cinematographer": "Michael Bauman" },
+        { "film": "Sinners", "cinematographer": "Autumn Durald Arkapaw" },
+        { "film": "Train Dreams", "cinematographer": "Adolpho Veloso" }
+      ]
+    },
+    {
+      "name": "Costume Design",
+      "nominees": [
+        { "film": "Avatar: Fire and Ash", "costumeDesigner": "Deborah L. Scott" },
+        { "film": "Frankenstein", "costumeDesigner": "Kate Hawley" },
+        { "film": "Hamnet", "costumeDesigner": "Malgosia Turzanska" },
+        { "film": "Marty Supreme", "costumeDesigner": "Miyako Bellizzi" },
+        { "film": "Sinners", "costumeDesigner": "Ruth E. Carter" }
+      ]
+    },
+    {
+      "name": "Directing",
+      "nominees": [
+        { "film": "Hamnet", "director": "Chloé Zhao" },
+        { "film": "Marty Supreme", "director": "Josh Safdie" },
+        { "film": "One Battle after Another", "director": "Paul Thomas Anderson" },
+        { "film": "Sentimental Value", "director": "Joachim Trier" },
+        { "film": "Sinners", "director": "Ryan Coogler" }
+      ]
+    },
+    {
+      "name": "Documentary Feature Film",
+      "nominees": [
+        { "film": "The Alabama Solution", "creators": "Andrew Jarecki and Charlotte Kaufman" },
+        { "film": "Come See Me in the Good Light", "creators": "Ryan White, Jessica Hargrave, Tig Notaro and Stef Willen" },
+        { "film": "Cutting through Rocks", "creators": "Sara Khaki and Mohammadreza Eyni" },
+        { "film": "Mr. Nobody against Putin", "creators": "David Borenstein, Pavel Talankin, Helle Faber and Alžběta Karásková" },
+        { "film": "The Perfect Neighbor", "creators": "Geeta Gandbhir, Alisa Payne, Nikon Kwantu and Sam Bisbee" }
+      ]
+    },
+    {
+      "name": "Documentary Short Film",
+      "nominees": [
+        { "film": "All the Empty Rooms", "creators": "Joshua Seftel and Conall Jones" },
+        { "film": "Armed Only with a Camera: The Life and Death of Brent Renaud", "creators": "Craig Renaud and Juan Arredondo" },
+        { "film": "Children No More: \"Were and Are Gone\"", "creators": "Hilla Medalia and Sheila Nevins" },
+        { "film": "The Devil Is Busy", "creators": "Christalyn Hampton and Geeta Gandbhir" },
+        { "film": "Perfectly a Strangeness", "creators": "Alison McAlpine" }
+      ]
+    },
+    {
+      "name": "Film Editing",
+      "nominees": [
+        { "film": "F1", "editors": "Stephen Mirrione" },
+        { "film": "Marty Supreme", "editors": "Ronald Bronstein and Josh Safdie" },
+        { "film": "One Battle after Another", "editors": "Andy Jurgensen" },
+        { "film": "Sentimental Value", "editors": "Olivier Bugge Coutté" },
+        { "film": "Sinners", "editors": "Michael P. Shawver" }
+      ]
+    },
+    {
+      "name": "International Feature Film",
+      "nominees": [
+        { "country": "Brazil", "film": "The Secret Agent" },
+        { "country": "France", "film": "It Was Just an Accident" },
+        { "country": "Norway", "film": "Sentimental Value" },
+        { "country": "Spain", "film": "Sirāt" },
+        { "country": "Tunisia", "film": "The Voice of Hind Rajab" }
+      ]
+    },
+    {
+      "name": "Live Action Short Film",
+      "nominees": [
+        { "film": "Butcher's Stain", "creators": "Meyer Levinson-Blount and Oron Caspi" },
+        { "film": "A Friend of Dorothy", "creators": "Lee Knight and James Dean" },
+        { "film": "Jane Austen's Period Drama", "creators": "Julia Aks and Steve Pinder" },
+        { "film": "The Singers", "creators": "Sam A. Davis and Jack Piatt" },
+        { "film": "Two People Exchanging Saliva", "creators": "Alexandre Singh and Natalie Musteata" }
+      ]
+    },
+    {
+      "name": "Makeup and Hairstyling",
+      "nominees": [
+        { "film": "Frankenstein", "artists": "Mike Hill, Jordan Samuel and Cliona Furey" },
+        { "film": "Kokuho", "artists": "Kyoko Toyokawa, Naomi Hibino and Tadashi Nishimatsu" },
+        { "film": "Sinners", "artists": "Ken Diaz, Mike Fontaine and Shunika Terry" },
+        { "film": "The Smashing Machine", "artists": "Kazu Hiro, Glen Griffin and Bjoern Rehbein" },
+        { "film": "The Ugly Stepsister", "artists": "Thomas Foldberg and Anne Cathrine Sauerberg" }
+      ]
+    },
+    {
+      "name": "Music (Original Score)",
+      "nominees": [
+        { "film": "Bugonia", "composer": "Jerskin Fendrix" },
+        { "film": "Frankenstein", "composer": "Alexandre Desplat" },
+        { "film": "Hamnet", "composer": "Max Richter" },
+        { "film": "One Battle after Another", "composer": "Jonny Greenwood" },
+        { "film": "Sinners", "composer": "Ludwig Goransson" }
+      ]
+    },
+    {
+      "name": "Music (Original Song)",
+      "nominees": [
+        { "song": "Dear Me", "film": "Diane Warren: Relentless", "credits": "Music and Lyric by Diane Warren" },
+        { "song": "Golden", "film": "KPop Demon Hunters", "credits": "Music and Lyric by EJAE, Mark Sonnenblick, Joong Gyu Kwak, Yu Han Lee, Hee Dong Nam, Jeong Hoon Seo and Teddy Park" },
+        { "song": "I Lied To You", "film": "Sinners", "credits": "Music and Lyric by Raphael Saadiq and Ludwig Goransson" },
+        { "song": "Sweet Dreams Of Joy", "film": "Viva Verdi!", "credits": "Music and Lyric by Nicholas Pike" },
+        { "song": "Train Dreams", "film": "Train Dreams", "credits": "Music by Nick Cave and Bryce Dessner; Lyric by Nick Cave" }
+      ]
+    },
+    {
+      "name": "Best Picture",
+      "nominees": [
+        { "film": "Bugonia", "producers": "Ed Guiney & Andrew Lowe, Yorgos Lanthimos, Emma Stone and Lars Knudsen" },
+        { "film": "F1", "producers": "Chad Oman, Brad Pitt, Dede Gardner, Jeremy Kleiner, Joseph Kosinski and Jerry Bruckheimer" },
+        { "film": "Frankenstein", "producers": "Guillermo del Toro, J. Miles Dale and Scott Stuber" },
+        { "film": "Hamnet", "producers": "Liza Marshall, Pippa Harris, Nicolas Gonda, Steven Spielberg and Sam Mendes" },
+        { "film": "Marty Supreme", "producers": "Eli Bush, Ronald Bronstein, Josh Safdie, Anthony Katagas and Timothée Chalamet" },
+        { "film": "One Battle after Another", "producers": "Adam Somner, Sara Murphy and Paul Thomas Anderson" },
+        { "film": "The Secret Agent", "producers": "Emilie Lesclaux" },
+        { "film": "Sentimental Value", "producers": "Maria Ekerhovd and Andrea Berentsen Ottmar" },
+        { "film": "Sinners", "producers": "Zinzi Coogler, Sev Ohanian and Ryan Coogler" },
+        { "film": "Train Dreams", "producers": "Marissa McMahon, Teddy Schwarzman, Will Janowitz, Ashley Schlaifer and Michael Heimler" }
+      ]
+    },
+    {
+      "name": "Production Design",
+      "nominees": [
+        { "film": "Frankenstein", "productionDesigner": "Tamara Deverell", "setDecoration": "Shane Vieau" },
+        { "film": "Hamnet", "productionDesigner": "Fiona Crombie", "setDecoration": "Alice Felton" },
+        { "film": "Marty Supreme", "productionDesigner": "Jack Fisk", "setDecoration": "Adam Willis" },
+        { "film": "One Battle after Another", "productionDesigner": "Florencia Martin", "setDecoration": "Anthony Carlino" },
+        { "film": "Sinners", "productionDesigner": "Hannah Beachler", "setDecoration": "Monique Champagne" }
+      ]
+    },
+    {
+      "name": "Sound",
+      "nominees": [
+        { "film": "F1", "team": "Gareth John, Al Nelson, Gwendolyn Yates Whittle, Gary A. Rizzo and Juan Peralta" },
+        { "film": "Frankenstein", "team": "Greg Chapman, Nathan Robitaille, Nelson Ferreira, Christian Cooke and Brad Zoern" },
+        { "film": "One Battle after Another", "team": "José Antonio García, Christopher Scarabosio and Tony Villaflor" },
+        { "film": "Sinners", "team": "Chris Welcker, Benjamin A. Burtt, Felipe Pacheco, Brandon Proctor and Steve Boeddeker" },
+        { "film": "Sirāt", "team": "Amanda Villavieja, Laia Casanovas and Yasmina Praderas" }
+      ]
+    },
+    {
+      "name": "Visual Effects",
+      "nominees": [
+        { "film": "Avatar: Fire and Ash", "team": "Joe Letteri, Richard Baneham, Eric Saindon and Daniel Barrett" },
+        { "film": "F1", "team": "Ryan Tudhope, Nicolas Chevallier, Robert Harrington and Keith Dawson" },
+        { "film": "Jurassic World Rebirth", "team": "David Vickery, Stephen Aplin, Charmaine Chan and Neil Corbould" },
+        { "film": "The Lost Bus", "team": "Charlie Noble, David Zaretti, Russell Bowen and Brandon K. McLaughlin" },
+        { "film": "Sinners", "team": "Michael Ralla, Espen Nordahl, Guido Wolter and Donnie Dean" }
+      ]
+    },
+    {
+      "name": "Writing (Adapted Screenplay)",
+      "nominees": [
+        { "film": "Bugonia", "writers": "Will Tracy" },
+        { "film": "Frankenstein", "writers": "Guillermo del Toro" },
+        { "film": "Hamnet", "writers": "Chloé Zhao & Maggie O'Farrell" },
+        { "film": "One Battle after Another", "writers": "Paul Thomas Anderson" },
+        { "film": "Train Dreams", "writers": "Clint Bentley & Greg Kwedar" }
+      ]
+    },
+    {
+      "name": "Writing (Original Screenplay)",
+      "nominees": [
+        { "film": "Blue Moon", "writers": "Robert Kaplow" },
+        { "film": "It Was Just an Accident", "writers": "Jafar Panahi; Script collaborators - Nader Saïvar, Shadmehr Rastin, Mehdi Mahmoudian" },
+        { "film": "Marty Supreme", "writers": "Ronald Bronstein & Josh Safdie" },
+        { "film": "Sentimental Value", "writers": "Eskil Vogt, Joachim Trier" },
+        { "film": "Sinners", "writers": "Ryan Coogler" }
+      ]
+    }
+  ]
+}
