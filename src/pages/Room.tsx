@@ -7,6 +7,7 @@ import VotingBallot from '@/components/VotingBallot'
 import HostView from '@/components/HostView'
 import LiveLeaderboard from '@/components/LiveLeaderboard'
 
+
 export default function Room() {
   const { code } = useParams<{ code: string }>()
   const navigate = useNavigate()
@@ -25,13 +26,9 @@ export default function Room() {
     error,
     savePrediction,
     startCeremony,
-    endCeremony,
     declareWinner,
     setCurrentCategory,
   } = useRoom(code)
-
-  // Host can toggle between dashboard and their own ballot
-  const [hostView, setHostView] = useState<'dashboard' | 'ballot'>('dashboard')
 
   // Quick join form state (when user arrives via direct URL without session)
   const [displayName, setDisplayName] = useState('')
@@ -251,32 +248,6 @@ export default function Room() {
 
       {/* Main content */}
       <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-8">
-        {/* Host view toggle */}
-        {phase === 'VOTING' && isHost && (
-          <div className="flex gap-2 mb-6">
-            <button
-              onClick={() => setHostView('dashboard')}
-              className={`px-4 py-2 rounded-lg font-bold text-sm uppercase tracking-wider transition-colors ${
-                hostView === 'dashboard'
-                  ? 'bg-gold text-primary'
-                  : 'bg-white/5 text-white/60 hover:text-white'
-              }`}
-            >
-              Dashboard
-            </button>
-            <button
-              onClick={() => setHostView('ballot')}
-              className={`px-4 py-2 rounded-lg font-bold text-sm uppercase tracking-wider transition-colors ${
-                hostView === 'ballot'
-                  ? 'bg-gold text-primary'
-                  : 'bg-white/5 text-white/60 hover:text-white'
-              }`}
-            >
-              My Ballot
-            </button>
-          </div>
-        )}
-
         {phase === 'VOTING' && !isHost && (
           <VotingBallot
             predictions={predictions}
@@ -285,19 +256,11 @@ export default function Room() {
           />
         )}
 
-        {phase === 'VOTING' && isHost && hostView === 'dashboard' && (
+        {phase === 'VOTING' && isHost && (
           <HostView
             roomCode={code || ''}
             participants={participants}
             onStartCeremony={startCeremony}
-          />
-        )}
-
-        {phase === 'VOTING' && isHost && hostView === 'ballot' && (
-          <VotingBallot
-            predictions={predictions}
-            onVote={savePrediction}
-            disabled={false}
           />
         )}
 
@@ -312,7 +275,6 @@ export default function Room() {
             isHost={isHost}
             onDeclareWinner={declareWinner}
             onSetCurrentCategory={setCurrentCategory}
-            onEndCeremony={endCeremony}
           />
         )}
       </main>

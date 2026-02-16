@@ -25,7 +25,6 @@ interface LiveLeaderboardProps {
   isHost?: boolean
   onDeclareWinner?: (categoryId: string, nomineeId: string) => void
   onSetCurrentCategory?: (categoryId: string) => void
-  onEndCeremony?: () => void
 }
 
 export default function LiveLeaderboard({
@@ -38,7 +37,6 @@ export default function LiveLeaderboard({
   isHost,
   onDeclareWinner,
   onSetCurrentCategory,
-  onEndCeremony
 }: LiveLeaderboardProps) {
   const announcedCount = Object.keys(winners).length
   const totalCategories = nominations.categories.length
@@ -540,20 +538,6 @@ export default function LiveLeaderboard({
         </div>
       </div>
 
-      {/* End Ceremony Button (host only) */}
-      {isHost && (
-        <div className="flex justify-center pt-4">
-          <button
-            onClick={onEndCeremony}
-            className="px-8 py-3 bg-zinc-800 hover:bg-red-500/20 border border-zinc-700 hover:border-red-500/40 text-white/60 hover:text-red-400 font-bold text-sm uppercase tracking-widest rounded-xl transition-all"
-          >
-            <span className="flex items-center gap-2">
-              <span className="material-symbols-outlined text-lg">stop_circle</span>
-              End Ceremony
-            </span>
-          </button>
-        </div>
-      )}
     </div>
   )
 }
