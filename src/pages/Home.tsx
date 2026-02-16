@@ -48,9 +48,15 @@ export default function Home() {
   const [isJoining, setIsJoining] = useState(false)
   const [joinError, setJoinError] = useState<string | null>(null)
 
+  const VALID_CHARS = 'ABCDEFGHJKMNPQRSTUVWXYZ23456789'
+  const generateCode = () => Array.from({ length: 4 }, () =>
+    VALID_CHARS[Math.floor(Math.random() * VALID_CHARS.length)]
+  ).join('')
+
   const [showHostModal, setShowHostModal] = useState(false)
   const [showHelp, setShowHelp] = useState(false)
   const [hostName, setHostName] = useState('')
+  const [hostCode, setHostCode] = useState(generateCode)
   const [isCreating, setIsCreating] = useState(false)
   const [createError, setCreateError] = useState<string | null>(null)
 
@@ -119,13 +125,13 @@ export default function Home() {
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!hostName.trim()) return
+    if (!hostName.trim() || hostCode.length !== 4) return
 
     setIsCreating(true)
     setCreateError(null)
 
     try {
-      const result = await createRoom(hostName.trim())
+      const result = await createRoom(hostName.trim(), hostCode.toUpperCase())
 
       saveSession({
         participantId: result.participantId,
@@ -348,13 +354,61 @@ export default function Home() {
                 />
               </div>
 
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="block text-sm font-medium text-white/50 uppercase tracking-wider">Room Code</label>
+                  <button
+                    type="button"
+                    onClick={() => { setHostCode(generateCode()); setCreateError(null) }}
+                    disabled={isCreating}
+                    className="text-xs text-gold hover:text-gold-light transition-colors disabled:opacity-50 flex items-center gap-1"
+                  >
+                    <span className="material-symbols-outlined text-sm">refresh</span>
+                    Randomize
+                  </button>
+                </div>
+                <div className="flex gap-3">
+                  {hostCode.split('').map((char, i) => (
+                    <input
+                      key={i}
+                      type="text"
+                      maxLength={1}
+                      value={char}
+                      onChange={e => {
+                        const val = e.target.value.toUpperCase()
+                        if (val && !VALID_CHARS.includes(val)) return
+                        const newCode = hostCode.split('')
+                        newCode[i] = val
+                        setHostCode(newCode.join(''))
+                        setCreateError(null)
+                        if (val && i < 3) {
+                          const next = e.target.nextElementSibling as HTMLInputElement | null
+                          next?.focus()
+                        }
+                      }}
+                      onKeyDown={e => {
+                        if (e.key === 'Backspace' && !hostCode[i] && i > 0) {
+                          const prev = (e.target as HTMLElement).previousElementSibling as HTMLInputElement | null
+                          prev?.focus()
+                        }
+                      }}
+                      disabled={isCreating}
+                      className={`flex-1 h-16 text-center text-3xl font-bold bg-white/10 border rounded-xl focus:border-gold focus:ring-1 focus:ring-gold text-white uppercase outline-none transition-colors disabled:opacity-50 ${
+                        /[0-9]/.test(char) ? 'text-gold border-gold/30' : 'border-white/20'
+                      }`}
+                    />
+                  ))}
+                </div>
+                <p className="text-white/30 text-xs">Customize or keep the random code. Share it with your friends.</p>
+              </div>
+
               {createError && (
                 <p className="text-red-400 text-sm">{createError}</p>
               )}
 
               <button
                 type="submit"
-                disabled={!hostName.trim() || isCreating}
+                disabled={!hostName.trim() || hostCode.length !== 4 || isCreating}
                 className="w-full h-14 bg-gold hover:bg-gold-light disabled:opacity-50 disabled:cursor-not-allowed text-primary font-black text-lg uppercase tracking-widest rounded-xl transition-all shadow-lg flex items-center justify-center gap-2"
               >
                 {isCreating ? 'Creating Room...' : 'Create Room'}

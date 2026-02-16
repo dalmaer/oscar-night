@@ -42,13 +42,24 @@ export interface LeaderboardEntry {
   score: number
 }
 
-// Create a new room
-export async function createRoom(hostName: string) {
-  const { data, error } = await supabase.rpc('create_room', {
-    host_name: hostName
-  })
+// Create a new room (optionally with a custom code)
+export async function createRoom(hostName: string, customCode?: string) {
+  const params: Record<string, string> = { host_name: hostName }
+  if (customCode) {
+    params.custom_code = customCode
+  }
 
-  if (error) throw error
+  const { data, error } = await supabase.rpc('create_room', params)
+
+  if (error) {
+    if (error.message.includes('already taken')) {
+      throw new Error('That room code is already taken. Try another one.')
+    }
+    if (error.message.includes('Invalid room code')) {
+      throw new Error('Invalid code. Use letters A-Z (no O, I, L) and digits 2-9.')
+    }
+    throw error
+  }
 
   return data as {
     roomId: string
