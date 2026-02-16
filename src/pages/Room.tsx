@@ -7,6 +7,11 @@ import VotingBallot from '@/components/VotingBallot'
 import HostView from '@/components/HostView'
 import LiveLeaderboard from '@/components/LiveLeaderboard'
 
+const PLACEHOLDER_NAMES = [
+  'Pat Cinema', 'Dolly Zoom', 'Oscar Worthy', 'Reel Johnson',
+  'Cam Angle', 'Stella Screenplay', 'Monty Montage', 'Iris Wideshot',
+  'Art Premiere', 'Beau Blockbuster', 'Faye Finale', 'Kit Trailer',
+]
 
 export default function Room() {
   const { code } = useParams<{ code: string }>()
@@ -31,6 +36,7 @@ export default function Room() {
   } = useRoom(code)
 
   // Quick join form state (when user arrives via direct URL without session)
+  const [placeholderName] = useState(() => PLACEHOLDER_NAMES[Math.floor(Math.random() * PLACEHOLDER_NAMES.length)])
   const [displayName, setDisplayName] = useState('')
   const [isJoining, setIsJoining] = useState(false)
   const [joinError, setJoinError] = useState<string | null>(null)
@@ -154,7 +160,7 @@ export default function Room() {
                   type="text"
                   value={displayName}
                   onChange={e => { setDisplayName(e.target.value); setJoinError(null) }}
-                  placeholder="e.g. CinemaFan88"
+                  placeholder={`e.g. ${placeholderName}`}
                   autoFocus
                   disabled={isJoining}
                   className="w-full h-14 px-4 bg-white/10 border border-white/20 rounded-xl focus:border-gold focus:ring-1 focus:ring-gold text-white text-lg font-medium placeholder:text-white/20 outline-none transition-colors disabled:opacity-50"

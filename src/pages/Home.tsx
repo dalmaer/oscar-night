@@ -5,6 +5,25 @@ import { useSession } from '@/hooks/useSession'
 import { createRoom, joinRoom } from '@/lib/room'
 import { nominations } from '@/lib/nominations'
 
+const PLACEHOLDER_NAMES = [
+  'Pat Cinema',
+  'Dolly Zoom',
+  'Oscar Worthy',
+  'Reel Johnson',
+  'Cam Angle',
+  'Stella Screenplay',
+  'Monty Montage',
+  'Iris Wideshot',
+  'Art Premiere',
+  'Beau Blockbuster',
+  'Faye Finale',
+  'Kit Trailer',
+]
+
+function randomPlaceholderName() {
+  return PLACEHOLDER_NAMES[Math.floor(Math.random() * PLACEHOLDER_NAMES.length)]
+}
+
 function getDaysUntilCeremony() {
   const ceremonyDate = new Date(nominations.ceremonyDate + 'T00:00:00')
   const now = new Date()
@@ -20,6 +39,7 @@ function formatCeremonyDate() {
 export default function Home() {
   const daysUntil = getDaysUntilCeremony()
   const ceremonyDateDisplay = formatCeremonyDate()
+  const [placeholderName] = useState(randomPlaceholderName)
   const navigate = useNavigate()
   const { session, saveSession, clearSession } = useSession()
 
@@ -250,7 +270,7 @@ export default function Home() {
                   type="text"
                   value={displayName}
                   onChange={e => setDisplayName(e.target.value)}
-                  placeholder="e.g. CinemaFan88"
+                  placeholder={`e.g. ${placeholderName}`}
                   className="w-full h-14 px-4 bg-white/10 border border-white/20 rounded-xl focus:border-gold focus:ring-1 focus:ring-gold text-white text-lg font-medium placeholder:text-white/20 outline-none transition-colors"
                 />
               </div>
@@ -320,7 +340,7 @@ export default function Home() {
                   type="text"
                   value={hostName}
                   onChange={e => { setHostName(e.target.value); setCreateError(null) }}
-                  placeholder="e.g. CinemaFan88"
+                  placeholder={`e.g. ${placeholderName}`}
                   autoFocus
                   disabled={isCreating}
                   className="w-full h-14 px-4 bg-white/10 border border-white/20 rounded-xl focus:border-gold focus:ring-1 focus:ring-gold text-white text-lg font-medium placeholder:text-white/20 outline-none transition-colors disabled:opacity-50"
