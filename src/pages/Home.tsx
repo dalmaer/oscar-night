@@ -155,6 +155,17 @@ export default function Home() {
     inputRefs.current[0]?.focus()
   }, [])
 
+  // Escape key closes modals
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      if (showHostModal && !isCreating) setShowHostModal(false)
+      else if (showHelp) setShowHelp(false)
+    }
+    document.addEventListener('keydown', handleEscape)
+    return () => document.removeEventListener('keydown', handleEscape)
+  }, [showHostModal, showHelp, isCreating])
+
   return (
     <div className="min-h-screen bg-primary text-white flex flex-col items-center justify-center relative overflow-hidden">
       {/* Gold leak effects */}
@@ -322,10 +333,7 @@ export default function Home() {
 
       {/* Host Modal */}
       {showHostModal && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          onKeyDown={e => { if (e.key === 'Escape' && !isCreating) setShowHostModal(false) }}
-        >
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
             className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             onClick={() => !isCreating && setShowHostModal(false)}
@@ -432,10 +440,7 @@ export default function Home() {
 
       {/* Help Modal */}
       {showHelp && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          onKeyDown={e => { if (e.key === 'Escape') setShowHelp(false) }}
-        >
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div
             className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             onClick={() => setShowHelp(false)}
