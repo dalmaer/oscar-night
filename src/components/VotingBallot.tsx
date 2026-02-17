@@ -181,7 +181,7 @@ function CategorySection({ category, selectedNominee, onSelect, disabled }: Cate
                     <img
                       src={posterSrc}
                       alt=""
-                      className="absolute right-0 top-0 h-full w-auto object-cover brightness-[0.3]"
+                      className="absolute right-0 top-0 h-full w-auto object-cover brightness-[0.5]"
                     />
                   </div>
                 )}
