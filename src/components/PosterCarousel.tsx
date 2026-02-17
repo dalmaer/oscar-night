@@ -90,36 +90,32 @@ export default function PosterCarousel() {
           return (
             <div
               key={i}
-              className="relative shrink-0 w-32 md:w-40 rounded-xl overflow-visible z-[6]"
+              className="relative shrink-0 w-32 md:w-40 rounded-xl overflow-hidden shadow-lg border border-white/10 transition-all duration-300 z-[6] hover:scale-105"
               onMouseEnter={() => setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
             >
-              <div className={`rounded-xl overflow-hidden shadow-lg border border-white/10 transition-all duration-300 ${hoveredIndex === i ? 'scale-105 brightness-110' : ''}`}>
-                <img
-                  src={poster.src}
-                  alt={poster.title}
-                  className="w-full h-auto brightness-75"
-                  loading="lazy"
-                />
-              </div>
+              <img
+                src={poster.src}
+                alt={poster.title}
+                className={`w-full h-auto transition-all duration-300 ${hoveredIndex === i ? 'brightness-[0.3] scale-105' : 'brightness-75'}`}
+                loading="lazy"
+              />
 
-              {/* Nomination tooltip */}
+              {/* Nomination overlay */}
               {hoveredIndex === i && cats.length > 0 && (
-                <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-56 bg-dark-darker/95 backdrop-blur-md border border-white/10 rounded-xl p-3 shadow-2xl z-20 pointer-events-none">
-                  <p className="text-gold text-xs font-black uppercase tracking-wider mb-2">{poster.title}</p>
-                  <div className="flex flex-wrap gap-1.5">
+                <div className="absolute inset-0 flex flex-col justify-end p-3 pointer-events-none">
+                  <p className="text-gold text-[11px] font-black uppercase tracking-wider mb-1.5 drop-shadow-lg">{poster.title}</p>
+                  <div className="flex flex-wrap gap-1">
                     {cats.map(cat => (
                       <span
                         key={cat}
-                        className="inline-flex items-center gap-1 px-2 py-1 bg-white/5 border border-white/10 rounded text-[10px] font-medium text-white/70"
+                        className="inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-black/50 backdrop-blur-sm rounded text-[9px] font-medium text-white/90"
                       >
-                        <span className="material-symbols-outlined text-gold" style={{ fontSize: '10px' }}>emoji_events</span>
+                        <span className="material-symbols-outlined text-gold" style={{ fontSize: '9px' }}>emoji_events</span>
                         {cat}
                       </span>
                     ))}
                   </div>
-                  {/* Arrow */}
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 border-[6px] border-transparent border-t-dark-darker/95" />
                 </div>
               )}
             </div>
