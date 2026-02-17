@@ -57,10 +57,12 @@ export default function PosterCarousel() {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      {/* Left fade */}
-      <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-primary to-transparent z-10 pointer-events-none" />
-      {/* Right fade */}
-      <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-primary to-transparent z-10 pointer-events-none" />
+      {/* Left fade + blur */}
+      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-primary via-primary/80 to-transparent z-10 pointer-events-none backdrop-blur-sm" style={{ maskImage: 'linear-gradient(to right, black 40%, transparent)' }} />
+      {/* Right fade + blur */}
+      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-primary via-primary/80 to-transparent z-10 pointer-events-none backdrop-blur-sm" style={{ maskImage: 'linear-gradient(to left, black 40%, transparent)' }} />
+      {/* Subtle overlay across all posters */}
+      <div className="absolute inset-0 bg-primary/30 z-[5] pointer-events-none" />
 
       <div
         ref={scrollRef}
@@ -69,12 +71,12 @@ export default function PosterCarousel() {
         {allPosters.map((poster, i) => (
           <div
             key={i}
-            className="shrink-0 w-32 md:w-40 rounded-xl overflow-hidden shadow-lg border border-white/10 transition-transform duration-300 hover:scale-105"
+            className="shrink-0 w-32 md:w-40 rounded-xl overflow-hidden shadow-lg border border-white/10 transition-all duration-300 hover:scale-105 hover:brightness-110"
           >
             <img
               src={poster.src}
               alt={poster.title}
-              className="w-full h-auto"
+              className="w-full h-auto brightness-75"
               loading="lazy"
             />
           </div>
