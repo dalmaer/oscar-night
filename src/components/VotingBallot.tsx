@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import confetti from 'canvas-confetti'
 import { nominations, getNomineeId, getNomineeDisplayName, getNomineeSecondaryInfo } from '@/lib/nominations'
+import { getPosterForFilm } from '@/lib/posters'
 
 interface VotingBallotProps {
   predictions: Record<string, string>
@@ -119,6 +120,7 @@ interface CategorySectionProps {
 
 function CategorySection({ category, selectedNominee, onSelect, disabled }: CategorySectionProps) {
   const [expanded, setExpanded] = useState(true)
+  const [hoveredNominee, setHoveredNominee] = useState<string | null>(null)
   const isActingCategory = category.name.includes('Actor') || category.name.includes('Actress')
   const isBestPicture = category.name === 'Best Picture'
 
@@ -149,16 +151,20 @@ function CategorySection({ category, selectedNominee, onSelect, disabled }: Cate
           {category.nominees.map((nominee) => {
             const nomineeId = getNomineeId(category.name, nominee)
             const isSelected = selectedNominee === nomineeId
+            const isHovered = hoveredNominee === nomineeId
             const displayName = getNomineeDisplayName(nominee)
             const secondaryInfo = getNomineeSecondaryInfo(nominee)
+            const posterSrc = nominee.film ? getPosterForFilm(nominee.film) : undefined
 
             return (
               <button
                 key={nomineeId}
                 onClick={() => !disabled && onSelect(nomineeId)}
+                onMouseEnter={() => setHoveredNominee(nomineeId)}
+                onMouseLeave={() => setHoveredNominee(null)}
                 disabled={disabled}
                 className={`
-                  relative text-left p-4 rounded-xl border transition-all
+                  relative text-left p-4 rounded-xl border transition-all overflow-hidden
                   ${isSelected
                     ? 'bg-gold/10 border-gold gold-glow'
                     : 'bg-primary/40 border-white/10 hover:border-gold/30'
@@ -166,7 +172,21 @@ function CategorySection({ category, selectedNominee, onSelect, disabled }: Cate
                   ${disabled ? 'cursor-not-allowed opacity-75' : 'cursor-pointer'}
                 `}
               >
-                <div className="flex items-center gap-4">
+                {/* Poster background on hover */}
+                {posterSrc && isHovered && (
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{ clipPath: 'polygon(40% 0, 100% 0, 100% 100%, 25% 100%)' }}
+                  >
+                    <img
+                      src={posterSrc}
+                      alt=""
+                      className="absolute right-0 top-0 h-full w-auto object-cover brightness-[0.3]"
+                    />
+                  </div>
+                )}
+
+                <div className="relative flex items-center gap-4">
                   {/* Selection indicator */}
                   <div className={`
                     size-6 rounded-full border-2 flex items-center justify-center shrink-0

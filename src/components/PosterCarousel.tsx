@@ -1,26 +1,24 @@
 import { useEffect, useRef, useState, useMemo } from 'react'
 import { nominations } from '@/lib/nominations'
+import { getPosterForFilm } from '@/lib/posters'
 
-const POSTERS = [
-  { src: '/movie-images/marty-supreme.jpg', title: 'Marty Supreme' },
-  { src: '/movie-images/sinners.jpg', title: 'Sinners' },
-  { src: '/movie-images/frankenstein.jpg', title: 'Frankenstein' },
-  { src: '/movie-images/sentimental-value.jpg', title: 'Sentimental Value' },
-  { src: '/movie-images/one-battle.jpg', title: 'One Battle after Another' },
-  { src: '/movie-images/bugonia.jpg', title: 'Bugonia' },
-  { src: '/movie-images/ugly-stepsister.jpg', title: 'The Ugly Stepsister' },
-  { src: '/movie-images/blue-moon.jpg', title: 'Blue Moon' },
-  { src: '/movie-images/hamnet.jpg', title: 'Hamnet' },
-  { src: '/movie-images/smashing-machine.jpg', title: 'The Smashing Machine' },
-  { src: '/movie-images/f1.jpg', title: 'F1' },
-  { src: '/movie-images/avatar.jpg', title: 'Avatar: Fire and Ash' },
-  { src: '/movie-images/elio.jpg', title: 'Elio' },
-  { src: '/movie-images/zootopia-2.jpg', title: 'Zootopia 2' },
-  { src: '/movie-images/song-sung-blue.jpg', title: 'Song Sung Blue' },
-  { src: '/movie-images/train-dreams.jpg', title: 'Train Dreams' },
-  { src: '/movie-images/secret-agent.jpg', title: 'The Secret Agent' },
-  { src: '/movie-images/kick-you.jpg', title: 'If I Had Legs I\'d Kick You' },
-]
+// Build poster list from all films that have poster images
+const POSTERS = (() => {
+  const seen = new Set<string>()
+  const posters: { src: string; title: string }[] = []
+  for (const cat of nominations.categories) {
+    for (const nom of cat.nominees) {
+      const film = nom.film
+      if (!film || seen.has(film)) continue
+      const src = getPosterForFilm(film)
+      if (src) {
+        seen.add(film)
+        posters.push({ src, title: film })
+      }
+    }
+  }
+  return posters
+})()
 
 export default function PosterCarousel() {
   const scrollRef = useRef<HTMLDivElement>(null)
