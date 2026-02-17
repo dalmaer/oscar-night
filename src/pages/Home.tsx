@@ -4,6 +4,7 @@ import OscarLogo from '@/components/OscarLogo'
 import { useSession } from '@/hooks/useSession'
 import { createRoom, joinRoom } from '@/lib/room'
 import { nominations } from '@/lib/nominations'
+import PosterCarousel from '@/components/PosterCarousel'
 
 const PLACEHOLDER_NAMES = [
   'Pat Cinema',
@@ -322,6 +323,11 @@ export default function Home() {
               Host a Party
             </button>
           </div>
+        </div>
+
+        {/* Poster Carousel */}
+        <div className="mt-16 w-full">
+          <PosterCarousel />
         </div>
 
         {/* Footer info */}
