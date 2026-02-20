@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useMemo } from 'react'
+import { useEffect, useRef, useState, useMemo, useCallback } from 'react'
 import { nominations } from '@/lib/nominations'
 import { getPosterForFilm } from '@/lib/posters'
 
@@ -21,9 +21,17 @@ const POSTERS = (() => {
 })()
 
 export default function PosterCarousel() {
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const [paused, setPaused] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const trackRef = useRef<HTMLDivElement>(null)
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+
+  // Animation & drag refs (no re-renders needed)
+  const offsetRef = useRef(0)
+  const isPausedRef = useRef(false)
+  const isDraggingRef = useRef(false)
+  const dragStartX = useRef(0)
+  const dragStartOffset = useRef(0)
+  const hasDragged = useRef(false)
 
   // Build a map of film title → nominated categories
   const filmCategories = useMemo(() => {
@@ -44,33 +52,105 @@ export default function PosterCarousel() {
   // Duplicate posters for seamless looping
   const allPosters = [...POSTERS, ...POSTERS]
 
+  // Measure half-width of the track (one full set of posters)
+  const getHalfWidth = useCallback(() => {
+    const track = trackRef.current
+    if (!track) return 0
+    return track.scrollWidth / 2
+  }, [])
+
+  // Wrap offset to keep it within one poster set width
+  const wrapOffset = useCallback(() => {
+    const halfWidth = getHalfWidth()
+    if (halfWidth === 0) return
+    while (offsetRef.current > 0) offsetRef.current -= halfWidth
+    while (offsetRef.current < -halfWidth) offsetRef.current += halfWidth
+  }, [getHalfWidth])
+
   useEffect(() => {
-    const el = scrollRef.current
-    if (!el) return
+    const container = containerRef.current
+    const track = trackRef.current
+    if (!container || !track) return
 
-    let animationId: number
-    const speed = 0.5 // pixels per frame
+    const speed = 0.5
+    let animId: number
 
-    const scroll = () => {
-      if (!paused) {
-        el.scrollLeft += speed
-        const halfWidth = el.scrollWidth / 2
-        if (el.scrollLeft >= halfWidth) {
-          el.scrollLeft -= halfWidth
-        }
+    const animate = () => {
+      if (!isPausedRef.current && !isDraggingRef.current) {
+        offsetRef.current -= speed
+        wrapOffset()
       }
-      animationId = requestAnimationFrame(scroll)
+      track.style.transform = `translateX(${offsetRef.current}px)`
+      animId = requestAnimationFrame(animate)
     }
 
-    animationId = requestAnimationFrame(scroll)
-    return () => cancelAnimationFrame(animationId)
-  }, [paused])
+    animId = requestAnimationFrame(animate)
+
+    // --- Touch handlers ---
+    const onTouchStart = (e: TouchEvent) => {
+      isDraggingRef.current = true
+      hasDragged.current = false
+      dragStartX.current = e.touches[0].clientX
+      dragStartOffset.current = offsetRef.current
+    }
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (!isDraggingRef.current) return
+      const dx = e.touches[0].clientX - dragStartX.current
+      if (Math.abs(dx) > 5) hasDragged.current = true
+      offsetRef.current = dragStartOffset.current + dx
+      wrapOffset()
+    }
+
+    const onTouchEnd = () => {
+      isDraggingRef.current = false
+    }
+
+    // --- Mouse handlers ---
+    const onMouseDown = (e: MouseEvent) => {
+      isDraggingRef.current = true
+      hasDragged.current = false
+      dragStartX.current = e.clientX
+      dragStartOffset.current = offsetRef.current
+      e.preventDefault() // prevent text selection
+    }
+
+    const onMouseMove = (e: MouseEvent) => {
+      if (!isDraggingRef.current) return
+      const dx = e.clientX - dragStartX.current
+      if (Math.abs(dx) > 5) hasDragged.current = true
+      offsetRef.current = dragStartOffset.current + dx
+      wrapOffset()
+    }
+
+    const onMouseUp = () => {
+      isDraggingRef.current = false
+    }
+
+    container.addEventListener('touchstart', onTouchStart, { passive: true })
+    container.addEventListener('touchmove', onTouchMove, { passive: true })
+    container.addEventListener('touchend', onTouchEnd)
+    container.addEventListener('mousedown', onMouseDown)
+    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mouseup', onMouseUp)
+
+    return () => {
+      cancelAnimationFrame(animId)
+      container.removeEventListener('touchstart', onTouchStart)
+      container.removeEventListener('touchmove', onTouchMove)
+      container.removeEventListener('touchend', onTouchEnd)
+      container.removeEventListener('mousedown', onMouseDown)
+      window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('mouseup', onMouseUp)
+    }
+  }, [wrapOffset])
 
   return (
     <div
-      className="relative w-full max-w-5xl mx-auto overflow-hidden"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => { setPaused(false); setHoveredIndex(null) }}
+      ref={containerRef}
+      className="relative w-full max-w-5xl mx-auto overflow-hidden select-none"
+      onMouseEnter={() => { isPausedRef.current = true }}
+      onMouseLeave={() => { isPausedRef.current = false; isDraggingRef.current = false; setHoveredIndex(null) }}
     >
       {/* Left fade + blur */}
       <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-primary to-transparent z-10 pointer-events-none backdrop-blur-sm" style={{ maskImage: 'linear-gradient(to right, black 40%, transparent)' }} />
@@ -80,8 +160,9 @@ export default function PosterCarousel() {
       <div className="absolute inset-0 bg-primary/30 z-[5] pointer-events-none" />
 
       <div
-        ref={scrollRef}
-        className="flex gap-4 overflow-hidden py-4"
+        ref={trackRef}
+        className="flex gap-4 py-4"
+        style={{ willChange: 'transform' }}
       >
         {allPosters.map((poster, i) => {
           const cats = filmCategories[poster.title] || []
@@ -97,6 +178,7 @@ export default function PosterCarousel() {
                 alt={poster.title}
                 className={`w-full h-auto transition-all duration-300 ${hoveredIndex === i ? 'brightness-[0.3] scale-105' : 'brightness-75'}`}
                 loading="lazy"
+                draggable={false}
               />
 
               {/* Nomination overlay */}

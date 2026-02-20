@@ -73,52 +73,8 @@ export default function Room() {
     navigate('/')
   }
 
-  if (isLoading) {
-    return (
-      <div className="min-h-screen bg-dark-darker flex items-center justify-center">
-        <div className="text-center">
-          <div className="size-12 border-4 border-gold border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-white/60">Loading room...</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen bg-dark-darker flex items-center justify-center">
-        <div className="text-center max-w-md mx-auto p-8">
-          <span className="material-symbols-outlined text-red-400 text-5xl mb-4">error</span>
-          <h2 className="text-xl font-bold text-white mb-2">Room Error</h2>
-          <p className="text-white/60 mb-6">{error}</p>
-          <button
-            onClick={handleLeaveRoom}
-            className="px-6 py-3 bg-gold text-primary font-bold rounded-lg"
-          >
-            Back to Home
-          </button>
-        </div>
-      </div>
-    )
-  }
-
-  if (!room) {
-    return (
-      <div className="min-h-screen bg-dark-darker flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-white/60">Room not found</p>
-          <button
-            onClick={handleLeaveRoom}
-            className="mt-4 px-6 py-3 bg-gold text-primary font-bold rounded-lg"
-          >
-            Back to Home
-          </button>
-        </div>
-      </div>
-    )
-  }
-
-  // Show quick join form if user has no session but room exists
+  // Show quick join form if user has no session (e.g. arrived via shared /room/CODE link)
+  // Check this first so useRoom errors don't block the join form
   if (!session) {
     return (
       <div className="min-h-screen bg-primary text-white flex flex-col items-center justify-center relative overflow-hidden">
@@ -186,6 +142,51 @@ export default function Room() {
               </Link>
             </div>
           </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-dark-darker flex items-center justify-center">
+        <div className="text-center">
+          <div className="size-12 border-4 border-gold border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-white/60">Loading room...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-dark-darker flex items-center justify-center">
+        <div className="text-center max-w-md mx-auto p-8">
+          <span className="material-symbols-outlined text-red-400 text-5xl mb-4">error</span>
+          <h2 className="text-xl font-bold text-white mb-2">Room Error</h2>
+          <p className="text-white/60 mb-6">{error}</p>
+          <button
+            onClick={handleLeaveRoom}
+            className="px-6 py-3 bg-gold text-primary font-bold rounded-lg"
+          >
+            Back to Home
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  if (!room) {
+    return (
+      <div className="min-h-screen bg-dark-darker flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-white/60">Room not found</p>
+          <button
+            onClick={handleLeaveRoom}
+            className="mt-4 px-6 py-3 bg-gold text-primary font-bold rounded-lg"
+          >
+            Back to Home
+          </button>
         </div>
       </div>
     )
