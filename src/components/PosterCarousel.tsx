@@ -32,6 +32,7 @@ export default function PosterCarousel() {
   const dragStartX = useRef(0)
   const dragStartOffset = useRef(0)
   const hasDragged = useRef(false)
+  const resumeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // Build a map of film title → nominated categories
   const filmCategories = useMemo(() => {
@@ -86,10 +87,20 @@ export default function PosterCarousel() {
 
     animId = requestAnimationFrame(animate)
 
+    // Resume auto-scroll after 2s of no interaction
+    const scheduleResume = () => {
+      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
+      isPausedRef.current = true
+      resumeTimerRef.current = setTimeout(() => {
+        isPausedRef.current = false
+      }, 2000)
+    }
+
     // --- Touch handlers ---
     const onTouchStart = (e: TouchEvent) => {
       isDraggingRef.current = true
       hasDragged.current = false
+      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
       dragStartX.current = e.touches[0].clientX
       dragStartOffset.current = offsetRef.current
     }
@@ -104,6 +115,7 @@ export default function PosterCarousel() {
 
     const onTouchEnd = () => {
       isDraggingRef.current = false
+      scheduleResume()
     }
 
     // --- Mouse handlers ---
@@ -136,6 +148,7 @@ export default function PosterCarousel() {
 
     return () => {
       cancelAnimationFrame(animId)
+      if (resumeTimerRef.current) clearTimeout(resumeTimerRef.current)
       container.removeEventListener('touchstart', onTouchStart)
       container.removeEventListener('touchmove', onTouchMove)
       container.removeEventListener('touchend', onTouchEnd)
